@@ -10,8 +10,7 @@ function Promo () {
             Учебный проект студента факультета Веб-разработки.
             </h1>
             <img src={PromoLogo} className="promo__image" alt="логотип промо" />
-            </div>
-            
+            </div>    
         </section>
     )
 }
