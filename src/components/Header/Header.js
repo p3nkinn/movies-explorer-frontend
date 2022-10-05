@@ -3,7 +3,7 @@ import moviesLogo from "../../images/head_logo.svg";
 import "./Header.css";
 function Header() {
   return (
-    <header className="header">
+    <header className="header"> 
       <a className="header__link" href="about">
         <img src={moviesLogo} className="header__logo" alt="логотип" />
       </a>

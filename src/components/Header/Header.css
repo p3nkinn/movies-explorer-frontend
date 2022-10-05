@@ -1,33 +1,33 @@
 .header {
     margin: 0 auto;
-    margin-top: 20px;
-    width: 100%;
+    padding: 20px 70px 0;
     display: flex;
     justify-content: space-between;
-    max-width: 1140px;
     min-height: 74px;
+    background-color: #073042;
+    
   }
 
-  .header__auth-register {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    color: #FFFFFF;
-    text-decoration: none;
-    padding-right: 30px;
-  }
+.header__auth-register {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #FFFFFF;
+  text-decoration: none;
+  padding-right: 30px;
+}
 
-  .header__auth-login {
-    width: 76px;
-    height: 32px;
-    background-color: #2BE080;
-    border-radius: 3px;
-    border: none;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    color: #000;
-    cursor: pointer;
-  }
+.header__auth-login {
+  width: 76px;
+  height: 32px;
+  background-color: #2BE080;
+  border-radius: 3px;
+  border: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+  cursor: pointer;
+}

@@ -1,24 +1,30 @@
 .promo {
     display: flex;
     width: 100%;
-    margin: 0 auto;
+    margin: -1px auto;
     min-height: 664px;
     background-color: #073042;
-    position: absolute;
-    top: 0;
-    z-index: -1;
 }
 
-.promo__title {
+.promo__wrapper {
     align-items: center;
     justify-content: center;
     display: flex;
     margin: 0 auto;
-    text-align: center;
+    position: relative;
     width: 730px;
+}
+
+.promo__title {
+    margin: 0;
+    text-align: center;
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
     letter-spacing: -0.04em;
     color: #FFFFFF;
+}
+
+.promo__image {
+    position: absolute;
 }
