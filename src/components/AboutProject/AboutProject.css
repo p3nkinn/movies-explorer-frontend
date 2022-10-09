@@ -14,3 +14,63 @@
     padding-bottom: 23px;
     border-bottom: 1px #000 solid;
 }
+
+.about__wrapper {
+    display: flex;
+    margin-top: 70px;
+}
+
+.about__info {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    color: #000000;
+    margin: 0;
+}
+
+.about__descr {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+    margin: 0;
+    margin-top: 26px;
+}
+
+.about__jobwork {
+    margin-top: 110px;
+    display: flex;
+}
+
+.about__greenweek {
+    background-color: #2BE080;
+    height: 36px;
+    width: 228px;
+}
+
+.about__greyweek {
+    width: 912px;
+    background-color: #F2F2F2;
+    height: 36px;
+}
+
+.about__oneweek {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #000000;
+    margin: 0;
+    padding-top: 9px;
+}
+
+.about__subweek {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #A0A0A0;
+    margin: 0;
+    padding-top: 14px;
+}
