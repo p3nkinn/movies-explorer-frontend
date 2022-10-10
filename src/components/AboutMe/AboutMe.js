@@ -3,7 +3,7 @@ import "../AboutMe/AboutMe.css";
 import studentsPhoto from '../../images/student_photo.jpg'
 function AboutMe() {
   return (
-    <section id="students" className="students">
+    <section id="student" className="students">
       <div className="main-content">
         <h2 className="students__title">Студент</h2>
         <div className="students__wrapper">
@@ -17,12 +17,12 @@ function AboutMe() {
             Контур». После того, как прошёл курс по веб-разработке, начал
             заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
+          <a href="https://github.com/p3nkinn" className="students_link">
           <p className="students__github">Github</p>
+          </a>
         </div>
         <img src={studentsPhoto} className="students__image" alt="фотография студента"></img>
         </div>
-        <div className="students__portfolio">Портфолио</div>
-        
       </div>
     </section>
   );
