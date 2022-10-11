@@ -1,7 +1,7 @@
 .promo {
     display: flex;
     width: 100%;
-    margin: -1px auto;
+    margin: 0px auto;
     min-height: 664px;
     background-color: #073042;
 }
