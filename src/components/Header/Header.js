@@ -26,7 +26,7 @@ function Header() {
           <a className="header__films" href="sign-up">
           Сохранённые фильмы
           </a>
-          <button type="button" className="header__accaunt" href="sign-up">
+          <button type="button" className="header__profile_btn" href="sign-up">
           Аккаунт
           </button>
         </div>

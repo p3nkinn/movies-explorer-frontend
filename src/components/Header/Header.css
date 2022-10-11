@@ -2,15 +2,19 @@
     margin: 0 auto;
     padding: 20px 70px 0;
     display: flex;
+    min-height: 74px;
+    width: 100%;
     justify-content: space-between; 
-  }
+    align-items: center;
+    position: absolute;
+    top: 0;
+}
 
 .header__auth-register {
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  color: #FFFFFF;
+  color: #fff;
   text-decoration: none;
   margin-right: 30px;
 }
@@ -21,10 +25,38 @@
   background-color: #2BE080;
   border-radius: 3px;
   border: none;
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   color: #000;
+  cursor: pointer;
+}
+
+.header__item {
+  width: 375px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__films {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: right;
+  color: #000000;
+  text-decoration: none;
+}
+
+.header__profile_btn {
+  width: 100px;
+  height: 32px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  border: none;
+  border-radius: 20px;
   cursor: pointer;
 }
