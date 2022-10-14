@@ -3,11 +3,36 @@
     min-height: 222px;
     display: flex;
     align-items: center;
+    margin-top: 74px;
 }
 
-.search__input {
+.search__form {
+    position: relative;
     width: 932px;
     height: 48px;
     border: 1px solid #E8E8E8;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.search__input {
+    border: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #A0A0A0;
+    padding-left: 22px;
+    outline: none;
+}
+
+.search__button {
+    width: 34px;
+    height: 34px;
+    background-color: #3456F3;
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    right: 7px;
+    cursor: pointer;
 }
