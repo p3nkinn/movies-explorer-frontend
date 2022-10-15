@@ -1,10 +1,15 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, useLocation } from "react-router-dom";
 import moviesLogo from "../../images/head_logo.svg";
 import "./Header.css";
+
 function Header() {
+
+  const location = useLocation();
+  const islocationBasic = location.pathname === "/";
+
   return (
-    <header className="header">
+    <header className={`header ${!islocationBasic ? "header__type-white" : ""}`}>
       <a className="header__link" href="/">
           <img src={moviesLogo} className="header__logo" alt="логотип" />
         </a>

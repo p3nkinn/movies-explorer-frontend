@@ -6,6 +6,11 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    background-color: #073042;
+}
+
+.header__type-white {
+  background-color: #fff;
 }
 
 .header__auth-register {
