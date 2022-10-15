@@ -5,9 +5,39 @@
     align-items: center;
 }
 
-.search__input {
+.search__container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search__form {
     width: 932px;
     height: 48px;
     border: 1px solid #E8E8E8;
     border-radius: 20px;
+    outline: none;
+    padding-top: 5px;
+}
+
+.search__input {
+    width: 891px;
+    padding-left: 22px;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #A0A0A0;
+}
+
+.search__find {
+    width: 34px;
+    height: 34px;
+    background-color: #3456F3;
+    border: none;
+    border-radius: 48px;
+    background-image: url(../../images/search.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
 }
