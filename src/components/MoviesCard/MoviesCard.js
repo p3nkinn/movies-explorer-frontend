@@ -1,34 +1,27 @@
 import React from "react";
-import '../MoviesCard/MoviesCard.css';
+import "../MoviesCard/MoviesCard.css";
 
-function MoviesCard() {
-    return (
-        <li className="elements__item">
-          <img
-            // onClick={handleClick}
-            alt="img"
-            className="elements__image"
-          />
-          <div className="elements__description">
-            <h3 className="elements__title">h</h3>
-            <div className="elements__hearts">
-              <button
-                // onClick={handleLikeClick}
-                type="button"
-                className="cardlike"
-                aria-label="лайк"
-              ></button>
-              <span className="elements__likes_count"></span>
-            </div>
-          </div>
+function MoviesCard({ cards }) {
+  return (
+    <li className="elements__item">
+      <img
+        src={cards}
+        alt={cards}
+        className="elements__image"
+      />
+      <div className="elements__description">
+        <h3 className="elements__title">33 слова о дизайне</h3>
+        <div className="elements__hearts">
           <button
-            // onClick={handleCardDelete}
             type="button"
-            className="carddel"
-            aria-label="удалить"
+            className="elements__button-like"
+            aria-label="лайк"
           ></button>
-        </li>
-      );
+        </div>
+      </div>
+      <p className="elements__duration">1ч42м</p>
+    </li>
+  );
 }
 
 export default MoviesCard;

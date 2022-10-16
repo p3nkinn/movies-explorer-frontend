@@ -1,0 +1,68 @@
+  .elements__item {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .elements__image {
+    width: 100%;
+    height: 282px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+  }
+
+	.elements__description {
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		padding: 25px 15px 31px 21px;
+	}
+	
+	@media screen and (max-width: 610px) {
+		.elements__description {
+			padding-bottom: 27px;
+		}
+	}
+
+	.elements__title {
+		font-weight: 900;
+		font-size: 24px;
+		line-height: 29px;
+		color: #000000;
+		margin: 0;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 215px;
+	}
+
+	.elements__hearts {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.elements__likes {
+		width: 22px;
+		height: 19px;
+		cursor: pointer;
+		border: none;
+	}
+	
+	.elements__likes:hover {
+		opacity: .5;
+	}
+
+	.elements__likes_count {
+		margin-top: 3px;
+		width: 10px;
+		height: 13px;
+	}
+
+	/* .elements__likes_active {
+		background: url('../../../../img/like-black.svg') center center/cover no-repeat;
+		opacity: 1;
+	} */
