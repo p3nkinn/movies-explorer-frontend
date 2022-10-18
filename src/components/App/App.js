@@ -17,28 +17,28 @@ function App() {
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route exact path="/movies">
-          <Movies />
-        </Route>
-        <Route exact path="/saved-movies">
-          <SavedMovies />
-        </Route>
-        <Route exact path="/sign-up">
-          <Register />
-        </Route>
-        <Route exact path="/sign-in">
-          <Login />
-        </Route>
-        <Route exact path="/profile">
-          <Profile />
-        </Route>
-      </Switch>
-      <Footer />
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route path="/movies">
+            <Movies />
+          </Route>
+          <Route path="/saved-movies">
+            <SavedMovies />
+          </Route>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+        </Switch>
+        <Footer />
       </CurrentUserContext.Provider>
     </div>
   );

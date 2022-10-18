@@ -1,44 +1,33 @@
 import React from "react";
-import { Route, useLocation, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import moviesLogo from "../../images/head_logo.svg";
+import Navigation from "../Navigation/Navigation";
 import "./Header.css";
 
 function Header() {
-
-  const location = useLocation();
-  const islocationBasic = location.pathname === "/";
-
   return (
-    <header className={`header ${!islocationBasic ? "header__type-white" : ""}`}>
-      <a className="header__link" href="/">
-          <img src={moviesLogo} className="header__logo" alt="логотип" />
-        </a>
-      <Route exact path="/">
-        <nav className="header__user">
-          <Link className="header__auth-register" to="/sign-up">
-            Регистрация
-          </Link>
-          <Link to="/sign-in">
-           <button type="button" className="header__auth-login">Войти</button> 
-          </Link>
-        </nav>
-      </Route>
+    <>
       <Route path={["/movies", "/saved-movies", "/profile"]}>
-      <div className="header__item">
-          <a className="header__films" href="movies">
-          Фильмы
-          </a>
-          <a className="header__films" href="saved-movies">
-          Сохранённые фильмы
-          </a>
-          <Link to="profile">
-          <button type="button" className="header__profile_btn">
-          Аккаунт
-          </button>
+        <header className="header header__type-white">
+          <Link className="header__link" to="/">
+            <img src={moviesLogo} className="header__logo" alt="логотип" />
           </Link>
-        </div>
+          <div className="header__item">
+            <Navigation />
+          </div>
+        </header>
       </Route>
-    </header>
+      <Route exact path="/">
+        <header className="header">
+          <Link className="header__link" href="/">
+            <img src={moviesLogo} className="header__logo" alt="логотип" />
+          </Link>
+          <nav className="header__user">
+            <Navigation />
+          </nav>
+        </header>
+      </Route>
+    </>
   );
 }
 
