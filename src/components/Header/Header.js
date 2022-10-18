@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, useLocation } from "react-router-dom";
+import { Route, useLocation, Link } from "react-router-dom";
 import moviesLogo from "../../images/head_logo.svg";
 import "./Header.css";
 
@@ -14,26 +14,28 @@ function Header() {
           <img src={moviesLogo} className="header__logo" alt="логотип" />
         </a>
       <Route exact path="/">
-        <div className="header__user">
-          <a className="header__auth-register" href="sign-in">
+        <nav className="header__user">
+          <Link className="header__auth-register" to="/sign-up">
             Регистрация
-          </a>
-          <button type="button" className="header__auth-login" href="sign-up">
-            Войти
-          </button>
-        </div>
+          </Link>
+          <Link to="/sign-in">
+           <button type="button" className="header__auth-login">Войти</button> 
+          </Link>
+        </nav>
       </Route>
-      <Route path="/movies">
+      <Route path={["/movies", "/saved-movies", "/profile"]}>
       <div className="header__item">
-          <a className="header__films" href="sign-in">
+          <a className="header__films" href="movies">
           Фильмы
           </a>
-          <a className="header__films" href="sign-up">
+          <a className="header__films" href="saved-movies">
           Сохранённые фильмы
           </a>
-          <button type="button" className="header__profile_btn" href="sign-up">
+          <Link to="profile">
+          <button type="button" className="header__profile_btn">
           Аккаунт
           </button>
+          </Link>
         </div>
       </Route>
     </header>

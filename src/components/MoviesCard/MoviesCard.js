@@ -1,20 +1,16 @@
 import React from "react";
 import "../MoviesCard/MoviesCard.css";
 
-function MoviesCard({ cards }) {
+function MoviesCard({ card }) {
   return (
     <li className="elements__item">
-      <img
-        src={cards}
-        alt={cards}
-        className="elements__image"
-      />
+      <img src={card} alt="text" className="elements__image" />
       <div className="elements__description">
         <h3 className="elements__title">33 слова о дизайне</h3>
         <div className="elements__hearts">
           <button
             type="button"
-            className="elements__button-like"
+            className="elements__likes"
             aria-label="лайк"
           ></button>
         </div>

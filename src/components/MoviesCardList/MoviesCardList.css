@@ -1,5 +1,5 @@
 .elements {
-    padding-top: 51px;
+    padding-top: 70px;
     width: 100%;
   }
   
@@ -14,8 +14,8 @@
     margin: 0;
     list-style-type: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px 17px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px 20px;
   }
   
   @media screen and (max-width: 910px) {
@@ -37,5 +37,19 @@
       gap: 18px;
     }
   }
+
+ .elements__button-more {
+    background: #F9F9F9;
+    border-radius: 6px;
+    height: 36px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    cursor: pointer;
+    border: none;
+    margin-top: 50px;
+ }
   
   
