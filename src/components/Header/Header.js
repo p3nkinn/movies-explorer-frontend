@@ -19,7 +19,7 @@ function Header() {
       </Route>
       <Route exact path="/">
         <header className="header">
-          <Link className="header__link" href="/">
+          <Link className="header__link" to="/">
             <img src={moviesLogo} className="header__logo" alt="логотип" />
           </Link>
           <nav className="header__user">

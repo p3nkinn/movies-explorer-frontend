@@ -26,11 +26,11 @@ function AboutProject() {
         </div>
         <div className="about__jobwork">
         <div className="about__greenweek">
-            <h3 className="about__oneweek">1 неделя</h3>
+            <h3 className="about__subtitle_one">1 неделя</h3>
             <p className="about__subweek">Back-end</p>
           </div>
           <div className="about__greyweek">
-            <h3 className="about__oneweek">4 недели</h3>
+            <h3 className="about__subtitle_four">4 недели</h3>
             <p className="about__subweek">Front-end</p>
           </div>
         </div>

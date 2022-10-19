@@ -1,30 +1,47 @@
 .promo {
-    display: flex;
     width: 100%;
     margin: 0px auto;
     min-height: 664px;
     background-color: #073042;
+    padding: 75px 0 75px;
 }
 
 .promo__wrapper {
-    align-items: center;
-    justify-content: center;
     display: flex;
-    margin: 0 auto;
-    position: relative;
-    width: 730px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .promo__title {
     margin: 0;
-    text-align: center;
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
-    letter-spacing: -0.04em;
     color: #FFFFFF;
+    width: 640px;
 }
 
-.promo__image {
-    position: absolute;
+.promo__subtitle {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #FFFFFF;
+    opacity: 0.5;
+    margin: 0;
+    width: 310px;
+}
+
+.promo__button {
+    width: 129px;
+    height: 36px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #FFFFFF;
+    margin-top: 146px;
+    cursor: pointer;
 }
