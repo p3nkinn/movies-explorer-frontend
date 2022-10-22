@@ -18,7 +18,6 @@ function Navigation() {
         </nav>
       </Route>
       <Route path={["/movies", "/saved-movies", "/profile"]}>
-        <nav className="header__user">
           <Link className="header__films" to="movies">
             Фильмы
           </Link>
@@ -30,7 +29,6 @@ function Navigation() {
               Аккаунт
             </button>
           </Link>
-        </nav>
       </Route>
     </Switch>
   );
