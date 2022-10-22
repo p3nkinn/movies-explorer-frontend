@@ -3,43 +3,37 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import "./App.css";
-import { useState } from "react";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
-
   return (
     <div className="app">
-      <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Switch>
           <Route exact path="/">
             <Main />
           </Route>
-          <Route path="/movies">
+          <Route exact path="/movies">
             <Movies />
           </Route>
-          <Route path="/saved-movies">
+          <Route exact path="/saved-movies">
             <SavedMovies />
           </Route>
-          <Route path="/sign-up">
+          <Route exact path="/signup">
             <Register />
           </Route>
-          <Route path="/sign-in">
+          <Route exact path="/signin">
             <Login />
           </Route>
-          <Route path="/profile">
+          <Route exact path="/profile">
             <Profile />
           </Route>
         </Switch>
         <Footer />
-      </CurrentUserContext.Provider>
     </div>
   );
 }

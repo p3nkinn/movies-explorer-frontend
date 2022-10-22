@@ -1,5 +1,7 @@
 import React from "react";
-import './SignForm.css';
+import "./SignForm.css";
+import LogoForm from "../../images/head_logo.svg";
+import { Link } from "react-router-dom";
 const SignForm = ({
   classAuth,
   formName,
@@ -19,6 +21,9 @@ const SignForm = ({
           action="#"
           className={formClass}
         >
+          <Link className="auth__logo" to="/">
+            <img src={LogoForm}  alt="логотип" />
+          </Link>
           <h2 className="auth__title">{authTitle}</h2>
           {children}
           <button type="submit" className="auth__button">

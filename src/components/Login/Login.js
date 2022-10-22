@@ -21,7 +21,7 @@ const Login = ({ onLogin }) => {
   const LinkMark = (
     <p className="auth__paragraph">
       Ещё не зарегистрированы?{" "}
-      <Link className="auth__link" to="/sign-in">
+      <Link className="auth__link" to="/signup">
       Регистрация
       </Link>
     </p>

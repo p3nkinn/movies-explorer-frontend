@@ -1,6 +1,6 @@
 import React from "react";
 import "../SearchForm/SearchForm.css";
-import searchImage from "../../images/search.png";
+import searchImage from "../../images/search.svg";
 import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
 
 function SearchForm() {

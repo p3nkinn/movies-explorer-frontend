@@ -4,29 +4,35 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-      <Switch>
-        <Route path="/">
-          <Link className="header__auth-register" to="/sign-up">
+    <Switch>
+      <Route exact path="/">
+        <nav className="header__auth">
+          <Link className="header__auth-register" to="/signup">
             Регистрация
           </Link>
-          <Link to="/sign-in">
+          <Link to="/signin">
             <button type="button" className="header__auth-login">
               Войти
             </button>
           </Link>
-        </Route>
-        <Route path="/movies">
-          <Link className="header__films" to="/movies">
+        </nav>
+      </Route>
+      <Route path={["/movies", "/saved-movies", "/profile"]}>
+        <nav className="header__user">
+          <Link className="header__films" to="movies">
             Фильмы
           </Link>
-          <Link className="header__films" to="/saved-movies">
+          <Link className="header__films" to="saved-movies">
             Сохранённые фильмы
           </Link>
-          <Link className="header__profile_btn" to="/profile">
-            Аккаунт
+          <Link to="profile">
+            <button type="button" className="header__profile_btn">
+              Аккаунт
+            </button>
           </Link>
-        </Route>
-      </Switch>
+        </nav>
+      </Route>
+    </Switch>
   );
 }
 

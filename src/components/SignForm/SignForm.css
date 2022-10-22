@@ -1,19 +1,26 @@
 .auth {
     width: 100%;
     margin: 0 auto;
+    background-color: #202020;
+    padding: 70px 0 70px;
 }
 
 .auth__title {
+    margin-top: 40px;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
-    color: #000000;
-    margin: 0;
-    margin-bottom: 40px;
+    color: #fff;
+    margin: 40px 0 40px;
+}
+
+.auth__logo {
+    width: 38px;
+    height: 38px;
 }
 
 .auth__button {
-    background-color: #3456F3;
+    background-color: #4285F4;
     border-radius: 3px;
     height: 45px;
     font-weight: 500;

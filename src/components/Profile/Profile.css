@@ -2,21 +2,24 @@
     width: 100%;
     margin: 0 auto;
     height: 626px;
+    background-color: #202020;
+    padding: 74px 0 70px;
 }
 
 .profile__title {
+    margin: 0;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
     text-align: center;
-    color: #000000;
+    color: #fff;
 }
 
 .profile__name {
     font-weight: 500;
     font-size: 11px;
     line-height: 13px;
-    color: #000000;
+    color: #fff;
     width: 141px;
 }
 
@@ -34,8 +37,9 @@
     font-size: 11px;
     line-height: 13px;
     text-align: right;
-    color: #000000;
+    color: #fff;
     outline: none;
+    background-color: #202020;
 }
 
 .profile__input-error {
@@ -55,7 +59,7 @@
     font-size: 13px;
     line-height: 16px;
     text-align: center;
-    color: #000000;
+    color: #fff;
     margin: 0;
     margin-top: 220px;
 }

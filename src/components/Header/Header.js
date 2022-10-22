@@ -8,25 +8,26 @@ function Header() {
   return (
     <>
       <Route path={["/movies", "/saved-movies", "/profile"]}>
-        <header className="header header__type-white">
+      <div className="main-content">
+        <header className="header header__type-black">
           <Link className="header__link" to="/">
             <img src={moviesLogo} className="header__logo" alt="логотип" />
-          </Link>
-          <div className="header__item">
-            <Navigation />
-          </div>
+          </Link> 
+          <Navigation />
         </header>
+        </div>
       </Route>
       <Route exact path="/">
         <header className="header">
+          <div className="main-content">
           <Link className="header__link" to="/">
             <img src={moviesLogo} className="header__logo" alt="логотип" />
           </Link>
-          <nav className="header__user">
-            <Navigation />
-          </nav>
+          <Navigation />
+          </div>
         </header>
       </Route>
+      
     </>
   );
 }

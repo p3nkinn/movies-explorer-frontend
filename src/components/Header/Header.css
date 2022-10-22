@@ -9,8 +9,8 @@
     background-color: #073042;
 }
 
-.header__type-white {
-  background-color: #fff;
+.header__type-black {
+  background-color: #202020;
 }
 
 .header__auth-register {
@@ -35,8 +35,8 @@
   cursor: pointer;
 }
 
-.header__item {
-  width: 375px;
+.header__auth {
+  width: 190px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,8 +46,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-  text-align: right;
-  color: #000000;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -57,9 +56,15 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
-  text-align: center;
-  color: #000000;
+  color: #FFFFFF;
   border: none;
-  border-radius: 20px;
   cursor: pointer;
+  border: 2px solid;
+  border-color: rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+}
+
+.header__user {
+  display: flex;
+  justify-content: space-between;
 }
