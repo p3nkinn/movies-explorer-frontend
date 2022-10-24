@@ -32,3 +32,7 @@
     cursor: pointer;
     margin-top: 69px;
 }
+
+.auth__button:hover {
+    opacity: 0.8;
+}

@@ -44,3 +44,7 @@
     line-height: 16px;
     color: #fff;
 }
+
+.footer__link:hover {
+    opacity: 0.7;
+}

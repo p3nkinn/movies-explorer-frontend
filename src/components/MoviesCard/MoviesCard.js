@@ -1,19 +1,25 @@
 import React from "react";
 import "../MoviesCard/MoviesCard.css";
 
+
 function MoviesCard({ card }) {
+  const [activeState, setActiveState] = React.useState(false);
   const duration = `${'27 минут'}`;
+  function handleClickButton() {
+    setActiveState(activeState => !activeState);
+  }
 
   return (
-    <li className="elements__item">
-      <div className="elements__description">
-        <h3 className="elements__title">В погоне за Бенкси</h3>
-        <p className="elements__duration">{duration}</p>
+    <li className="moviescard__item">
+      <div className="moviescard__description">
+        <h3 className="moviescard__title">В погоне за Бенкси</h3>
+        <p className="moviescard__duration">{duration}</p>
       </div>
-      <img src={card} alt="text" className="elements__image" />
+      <img src={card} alt="text" className="moviescard__image" />
           <button
+            onClick={handleClickButton}
             type="button"
-            className="elements__saved"
+            className={`moviescard__saved${activeState ? ' moviescard__saved_active' : ''}`}
             aria-label="сохранить"
           >Сохранить</button>
     </li>

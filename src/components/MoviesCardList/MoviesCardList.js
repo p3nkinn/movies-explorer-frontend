@@ -10,9 +10,9 @@ function MoviesCardList({ cards }) {
   };
 
   return (
-    <section className="elements">
+    <section className="moviescard">
       <div className="main-content">
-      <ul className="elements__list">
+      <ul className="moviescard__list">
         {cards.slice(0, visible).map((item, i) => (
           <MoviesCard card={item} key={i} />
         ))}
@@ -20,7 +20,7 @@ function MoviesCardList({ cards }) {
       <Switch>
         <Route path="/movies">
             <button
-              className="elements__button-more"
+              className="moviescard__button-more"
               type="button"
               aria-label="Добавить фильмы"
               onClick={loadMore}

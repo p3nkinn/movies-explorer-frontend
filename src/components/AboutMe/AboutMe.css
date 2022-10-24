@@ -68,3 +68,7 @@
     margin: 0;
     margin-top: 99px;
 }
+
+.students_link:hover {
+    opacity: 0.7;
+}

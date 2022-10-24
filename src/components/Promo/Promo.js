@@ -17,7 +17,7 @@ function Promo() {
           Листайте ниже, чтобы узнать больше про этот проект и его создателя.
         </p>
         <button type="button" aria-label="О проекте" className="promo__button">
-          Узнать больше
+          <a href="#about" className="promo__link">Узнать больше</a>
         </button>
       </div>
     </section>

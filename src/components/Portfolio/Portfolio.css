@@ -39,6 +39,10 @@
     text-decoration: none;
 }
 
+.portfolio__link:hover {
+    opacity: 0.7;
+}
+
 .portfolio__arrow {
     color: #fff;
     margin: 0;
