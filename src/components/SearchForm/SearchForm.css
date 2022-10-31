@@ -1,9 +1,10 @@
 .search { 
     width: 100%;
-    min-height: 222px;
+    min-height: 247px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     background-color: #202020;
+    padding: 60px 70px 70px;
 }
 
 .search__form {
@@ -43,4 +44,24 @@
 
 .search__button:hover {
     opacity: 0.8;
+}
+
+@media screen and (max-width: 1024px) {
+    .search {
+        padding: 80px 30px 62px;
+        height: 248px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .search {
+        padding: 80px 14px 50px;
+        
+    }
+
+    .search__input {
+        font-size: 11px;
+        line-height: 17px;
+        padding-left: 19px;
+    }
 }

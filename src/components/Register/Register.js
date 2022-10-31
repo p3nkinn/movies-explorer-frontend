@@ -1,24 +1,12 @@
 import React from "react";
-import SignForm from '../SignForm/SignForm';
-import './Register.css';
+import SignForm from "../SignForm/SignForm";
+import "./Register.css";
 import { Link } from "react-router-dom";
+import useFormValidation from "../../hook/useFormValidation";
 
-const Register = ({ onRegister }) => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onRegister(email, password);
-  };
+const Register = () => {
+  const { values, handleChange, errors, isValid, handleSubmit } =
+    useFormValidation();
 
   const LinkMark = (
     <p className="auth__paragraph">
@@ -36,52 +24,83 @@ const Register = ({ onRegister }) => {
       authTitle="Добро пожаловать!"
       formName="authRegister"
       formClass="auth__form auth__form_register"
-      textBtn={"Зарегистрироваться"}
       LinkMark={LinkMark}
     >
-      <label className="auth__input-error">
-        <p className="auth__input-title">Имя</p>
+      <label className="auth__input-error" htmlFor="name">
+        Имя
         <input
-          id="name-input"
           name="name"
           type="text"
           aria-label="имя"
           placeholder="Имя"
+          minLength="2"
+          maxLength="30"
+          value={values.name || ""}
+          autoComplete="off"
+          onChange={handleChange}
           required
           className="auth__input auth__input_type_name"
         />
-        <span className="name-input-error auth__error auth__error_visible"></span>
+        <span
+          className={`name-input-error ${
+            errors.name && "auth__error auth__error_visible"
+          }`}
+        >
+          {errors.name}
+        </span>
       </label>
-      <label className="auth__input-error">
-      <p className="auth__input-title">E-mail</p>
+      <label className="auth__input-error" htmlFor="email">
+        E-mail
         <input
-          id="email-input"
           name="email"
           type="email"
           aria-label="электронная почта"
           placeholder="Email"
-          value={email || ""}
-          onChange={handleEmailChange}
+          value={values.email || ""}
+          onChange={handleChange}
+          autoComplete="off"
           required
           className="auth__input auth__input_type_email"
         />
-        <span className="name-input-error auth__error auth__error_visible"></span>
+        <span
+          className={`email-input-error ${
+            errors.email && "auth__error auth__error_visible"
+          }`}
+        >
+          {errors.email}
+        </span>
       </label>
-      <label className="auth__input-error">
-      <p className="auth__input-title">Пароль</p>
+      <label className="auth__input-error" htmlFor="password">
+        Пароль
         <input
-          id="password-input"
           name="password"
           type="password"
           aria-label="Пароль"
           placeholder="Пароль"
-          value={password || ""}
-          onChange={handlePasswordChange}
+          onChange={handleChange}
+          minLength="8"
+          autoComplete="off"
+          value={values.password || ""}
           required
-          className="auth__input auth__input_type_userjob"
+          className="auth__input auth__input_type_password"
         />
-        <span className="job-input-error auth__error auth__error_visible"></span>
+        <span
+          className={`password-input-error ${
+            errors.password && "auth__error auth__error_visible"
+          }`}
+        >
+          {errors.password}
+        </span>
       </label>
+      <button
+        type="submit"
+        className={`${
+          isValid ? "auth__button" : "auth__button auth__button_disabled"
+        }`}
+        disabled={!isValid}
+      >
+        Зарегистрироваться
+      </button>
     </SignForm>
   );
 };

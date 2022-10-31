@@ -2,7 +2,7 @@
     height: 625px;
     width: 100%;
     background-color:  #272727;
-    padding: 100px 0;
+    padding: 100px 70px;
 }
 
 .techs__title {
@@ -11,6 +11,7 @@
     line-height: 27px;
     letter-spacing: -0.04em;
     color: #fff;
+    margin: 0;
     border-bottom: 1px solid #DADADA;
     padding-bottom: 23px;
 }
@@ -20,7 +21,7 @@
     flex-direction: column;
     margin: 0 auto;
     margin-top: 90px;
-    width: 465px;
+    max-width: 465px;
 }
 
 .techs__subtitle {
@@ -41,7 +42,7 @@
     letter-spacing: -0.04em;
     color: #fff;
     margin: 0;
-    margin-top: 16px;
+    margin-top: 25px;
 }
 
 .techs__about {
@@ -49,8 +50,10 @@
     justify-content: space-between;
     align-items: center;
     list-style-type: none;
-    width: 690px;
+    max-width: 690px;
     margin: 0 auto;
+    padding: 0;
+    width: 100%;
     margin-top: 100px;
 
 }
@@ -71,4 +74,75 @@
     text-align: center;
     letter-spacing: -0.04em;
     color: #fff;
+}
+
+@media screen and (max-width: 1024px) {
+    .techs {
+     height: 567px;
+     padding: 90px 60px;
+   } 
+
+   .techs__info {
+    margin-top: 80px;
+   }
+
+   .techs__descr {
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 22px;
+   }
+
+   .techs__about {
+    margin-top: 83px;
+    padding: 0;
+    max-width: 642px;
+    width: 100%;
+   }
+
+   .techs__framework {
+    width: 84px;
+    height: 57px;
+   }
+}
+
+@media screen and (max-width: 768px) {
+    .techs {
+     height: 651px;
+     padding: 70px 18px;
+   } 
+
+   .techs__info {
+    margin-top: 60px;
+   }
+
+   .techs__title {
+    font-size: 18px;
+    line-height: 22px;
+    border-bottom: 1px solid #000;
+   }
+
+   .techs__subtitle {
+    font-size: 30px;
+    line-height: 36px;
+   }
+
+   .techs__descr {
+    font-size: 11px;
+    line-height: 16px;
+    margin-top: 24px;
+   }
+
+   .techs__about {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 180px;
+    gap: 10px 10px;
+    width: 180px;
+   }
+
+   .techs__framework {
+    width: 84px;
+    height: 57px;
+   }
 }

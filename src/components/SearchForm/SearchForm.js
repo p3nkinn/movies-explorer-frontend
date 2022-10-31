@@ -3,23 +3,21 @@ import "../SearchForm/SearchForm.css";
 import searchImage from "../../images/search.svg";
 import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
 
-function SearchForm() {
+const SearchForm = () => {
   return (
-    <section className="search">
-      <div className="main-content">
-        <form name="searchName" action="#" className="search__form">
-          <input
-            placeholder="Фильм"
-            type="text"
-            className="search__input"
-          ></input>
-          <button type="submit" className="search__button">
-            <img src={searchImage} className="form__img" alt="поиск"></img>
-          </button>
-        </form>
-        <FilterCheckBox />
-      </div>
-    </section>
+    <div className="search">
+      <form name="searchName" action="#" className="search__form">
+        <input
+          placeholder="Фильм"
+          type="text"
+          className="search__input"
+        ></input>
+        <button type="submit" className="search__button">
+          <img src={searchImage} className="form__img" alt="поиск"></img>
+        </button>
+      </form>
+      <FilterCheckBox />
+    </div>
   );
 }
 

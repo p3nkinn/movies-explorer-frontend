@@ -1,12 +1,11 @@
 import React from "react";
 import "../AboutMe/AboutMe.css";
-import studentsPhoto from '../../images/student_photo.jpg'
-function AboutMe() {
+import studentsPhoto from "../../images/student_photo.jpg";
+const AboutMe = () => {
   return (
-    <section className="students">
-      <div className="main-content">
-        <h2 className="students__title">Студент</h2>
-        <div className="students__wrapper">
+    <section id="students" className="students">
+      <h2 className="students__title">Студент</h2>
+      <div className="students__wrapper">
         <div className="students__info">
           <h3 className="students__subtitle">Виталий</h3>
           <p className="students__skill">Фронтенд-разработчик, 30 лет</p>
@@ -21,8 +20,11 @@ function AboutMe() {
             Github
           </a>
         </div>
-        <img src={studentsPhoto} className="students__image" alt="фотография студента"></img>
-        </div>
+        <img
+          src={studentsPhoto}
+          className="students__image"
+          alt="фотография студента"
+        ></img>
       </div>
     </section>
   );

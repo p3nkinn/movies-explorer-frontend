@@ -3,10 +3,10 @@
     margin: 0 auto;
     background-color: #202020;
     padding: 70px 0 70px;
+    height: 100vh;
 }
 
 .auth__title {
-    margin-top: 40px;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
@@ -22,6 +22,8 @@
 .auth__button {
     background-color: #4285F4;
     border-radius: 3px;
+    max-width: 396px;
+    width: 100%;
     height: 45px;
     font-weight: 500;
     font-size: 14px;
@@ -33,6 +35,41 @@
     margin-top: 69px;
 }
 
+.auth__button_disabled {
+    color: #000;
+    background-color: #F8F8F8;
+}
+
 .auth__button:hover {
     opacity: 0.8;
+}
+
+.auth__button_disabled:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 1024px) {
+    .auth {
+        padding: 232px 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .auth {
+        padding: 56px 30px 30px;
+    }
+
+    .auth__title {
+        margin: 50px 0 80px;
+        text-align: center;
+    }
+
+    .auth__logo {
+        margin: 0 auto;
+    }
+
+    .auth__button {
+        margin-top: 157px;
+    }
+
 }

@@ -1,22 +1,11 @@
 import React from "react";
 import SignForm from "../SignForm/SignForm";
 import { Link } from "react-router-dom";
-const Login = ({ onLogin }) => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+import useFormValidation from "../../hook/useFormValidation";
+const Login = () => {
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onLogin(email, password);
-  };
+  const { values, handleChange, errors, isValid, handleSubmit } =
+    useFormValidation();
 
   const LinkMark = (
     <p className="auth__paragraph">
@@ -34,37 +23,58 @@ const Login = ({ onLogin }) => {
       authTitle="Рады видеть!"
       formName="authLogin"
       formClass="auth__form auth__form_register"
-      textBtn={"Войти"}
       LinkMark={LinkMark}
     >
-      <label className="auth__input-error">
-      <p className="auth__input-title">E-mail</p>
+      <label htmlFor="email" className="auth__input-error">
+      E-mail
         <input
           name="email"
           type="email"
           aria-label="электронная почта"
           placeholder="Email"
-          value={email || ""}
-          onChange={handleEmailChange}
+          value={values.email || ""}
+          onChange={handleChange}
           required
           className="auth__input auth__input_type_email"
         />
-        <span className="name-input-error auth__error auth__error_visible"></span>
+        <span
+          className={`email-input-error ${
+            errors.email && "auth__error auth__error_visible"
+          }`}
+        >
+          {errors.email}
+        </span>
       </label>
-      <label className="auth__input-error">
-      <p className="auth__input-title">Пароль</p>
+      <label htmlFor="password" className="auth__input-error">
+      Пароль
         <input
           name="password"
           type="password"
           aria-label="Пароль"
           placeholder="Пароль"
-          value={password || ""}
-          onChange={handlePasswordChange}
+          minLength="8"
+          value={values.password || ""}
+          onChange={handleChange}
           required
-          className="auth__input auth__input_type_userjob"
+          className="auth__input auth__input_type_password"
         />
-        <span className="password-input-error auth__error auth__error_visible"></span>
+        <span
+          className={`password-input-error ${
+            errors.password && "auth__error auth__error_visible"
+          }`}
+        >
+          {errors.password}
+        </span>
       </label>
+      <button
+        type="submit"
+        className={`${
+          isValid ? "auth__button" : "auth__button auth__button_disabled"
+        }`}
+        disabled={!isValid}
+      >
+        Войти
+      </button>
     </SignForm>
   );
 };

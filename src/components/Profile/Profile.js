@@ -1,61 +1,56 @@
 import React from "react";
-import './Profile.css'
-function Profile({onChange}) {
-    const [email, setEmail] = React.useState("Виталий");
-    const [name, setName] = React.useState("pochta@yandex.ru");
+import "./Profile.css";
 
-    const handleEmailChange = (e) => {
-      setEmail(e.target.value);
-    };
+const Profile = () => {
 
-    const handleNameChange = (e) => {
-      setName(e.target.value);
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      onChange(email);
-    };
-    return (
-      <div className="profile">
-        <h2 className="profile__title">Привет, Виталий!</h2>
-        <form onSubmit={handleSubmit} className="profile__form" noValidate name="profile" action="#">
-        <label className="profile__input-error">
-        <p className="profile__name">Имя</p>
+  return (
+    <div className="profile">
+      <h2 className="profile__title">Привет, Виталий!</h2>
+      <form className="profile__form">
+        <label htmlFor="name" className="profile__form-label">
+          Имя
           <input
-            id="name-input"
             name="name"
             type="text"
             aria-label="имя"
             placeholder="Имя"
-            value={name || ""}
-            onChange={handleNameChange}
+            minLength="2"
+            maxLength="10"
+            defaultValue={"Виталий"}
             required
             className="profile__input profile__input_type_name"
           />
-          <span className="name-input-error auth__error auth__error_visible"></span>
+          <span
+            className="name-input-error 
+            profile__error profile__error_visible"
+          ></span>
         </label>
-        <hr className="profile__divider"></hr>
-        <label className="profile__input-error">
-        <p className="profile__name">E-mail</p>
+
+        <label htmlFor="email" className="profile__form-label">
+          E-mail
           <input
-            id="email-input"
             name="email"
             type="email"
             aria-label="электронная почта"
             placeholder="E-mail"
-            value={email || ""}
-            onChange={handleEmailChange}
+            defaultValue={"pochta@yandex.ru"}
+            className="profile__input profile__input_type_name"
             required
-            className="profile__input profile__input_type_email"
           />
-          <span className="name-input-error auth__error auth__error_visible"></span>
+          <span
+            className="name-input-error
+             profile__error profile__error_visible"
+          ></span>
         </label>
-        <p className="profile__edit">Редактировать</p>
-        <a href="/sign-in" className="profile__logout">Выйти из аккаунта</a>
-        </form>
-        </div>
-    )
-}
+        <button type="submit" className="profile__button-edit">
+          Редактировать
+        </button>
+      </form>
+      <button type="button" className="profile__button-logout">
+        Выйти из аккаунта
+      </button>
+    </div>
+  );
+};
 
 export default Profile;

@@ -18,12 +18,12 @@ import card13 from '../../images/movies-image.jpg';
 import card14 from '../../images/movies-image.jpg';
 const cards = [];
 cards.push(card1, card2, card3, card4,card5,card6,card7,card8,card9,card10,card11,card12,card13,card14);
-function Movies() {
+const Movies = () => {
     return (
-        <div className="movies">
+        <section className="movies">
         <SearchForm />
         <MoviesCardList cards={cards} />
-        </div>
+        </section>
     )
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import "../MoviesCard/MoviesCard.css";
 
 
-function MoviesCard({ card }) {
+const MoviesCard = ({ card }) => {
   const [activeState, setActiveState] = React.useState(false);
   const duration = `${'27 минут'}`;
   function handleClickButton() {

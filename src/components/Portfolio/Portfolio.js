@@ -1,11 +1,11 @@
 import React from "react";
 import "../Portfolio/Portfolio.css";
+import arrowIcon from '../../images/icon-arrow.svg';
 
-function Portfolio() {
+const Portfolio = () => {
   return (
     <section className="portfolio">
-      <div className="main-content">
-        <h2 className="portfolio__title">Портфолио</h2>
+      <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__item">
         <li className="portfolio__list">
           <a
@@ -16,7 +16,7 @@ function Portfolio() {
           >
             Статичный сайт
           </a>
-          <p className="portfolio__arrow">↗</p>
+          <img src={arrowIcon} alt="стрелка" className="portfolio__arrow"></img>
         </li>
 
         <li className="portfolio__list">
@@ -28,7 +28,7 @@ function Portfolio() {
           >
             Адаптивный сайт
           </a>
-          <p className="portfolio__arrow">↗</p>
+          <img src={arrowIcon} alt="стрелка" className="portfolio__arrow"></img>
         </li>
 
         <li className="portfolio__list">
@@ -40,10 +40,9 @@ function Portfolio() {
           >
             Одностраничное приложение
           </a>
-          <p className="portfolio__arrow">↗</p>
+          <img src={arrowIcon} alt="стрелка" className="portfolio__arrow"></img>
         </li>
       </ul>
-      </div>
     </section>
   );
 }

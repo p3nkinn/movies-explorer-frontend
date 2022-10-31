@@ -1,9 +1,8 @@
 .about {
     height: 608px;
     width: 100%;
-    padding: 110px 0;
+    padding: 110px 70px;
     background-color: #202020;
-
 }
 
 .about__title {
@@ -48,11 +47,12 @@
 .about__greenweek {
     background-color: #2BE080;
     height: 36px;
-    width: 228px;
+    max-width: 228px;
+    width: 26%;
 }
 
 .about__greyweek {
-    width: 912px;
+    width: 100%;
     background-color: #303030;
     height: 36px;
 }
@@ -83,7 +83,93 @@
     line-height: 17px;
     text-align: center;
     color: #8B8B8B;
-    ;
     margin: 0;
-    padding-top: 14px;
+    margin-top: 25px;
+}
+
+@media screen and (max-width: 1024px) {
+    .about {
+        height: 585px;
+        padding: 90px 50px;
+    }
+
+    .about__descr {
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 22px;
+    }
+
+    .about__jobwork {
+        margin-top: 105px;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .about {
+        height: 641px;
+        padding: 70px 18px 69px;
+    }
+
+    .about__title {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 28px;
+    }
+
+    .about__project {
+        margin-top: 56px;
+    }
+
+    .about__project:first-child {
+        margin-top: 0;
+    }
+
+    .about__wrapper {
+        margin-top: 60px;
+        flex-direction: column;
+    }
+
+    .about__info {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about__descr {
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 16px;
+    }
+
+    .about__jobwork {
+        margin-top: 60px;
+    }
+
+    .about__greenweek {
+        width: 55%;
+        height: 35px;
+    }
+
+    .about__greyweek {
+        height: 35px;
+    }
+
+    .about__subweek {
+        margin-top: 15px;
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about__subtitle_one {
+        font-size: 11px;
+        line-height: 13px;
+        padding-top: 11px;
+    }
+
+    .about__subtitle_four {
+        font-size: 11px;
+        line-height: 13px;
+        padding-top: 11px;
+    }
+
 }

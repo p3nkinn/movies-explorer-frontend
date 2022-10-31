@@ -7,11 +7,12 @@ import card2 from '../../images/movies-image.jpg';
 import card3 from '../../images/movies-image.jpg';
 const cards = [];
 cards.push(card1, card2, card3);
-function SavedMovies() {
+const SavedMovies = () => {
     return (
-        <section className="savedmovie">
+        <section className="saved-movie">
             <SearchForm />
             <MoviesCardList cards={cards} />
+            <div className="saved-movie-devider" />
         </section>
     )
 }

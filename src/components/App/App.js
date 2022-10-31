@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -10,10 +11,11 @@ import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 
-function App() {
+const App = () => {
   return (
     <div className="app">
         <Header />
+        <main className="main-content">
         <Switch>
           <Route exact path="/">
             <Main />
@@ -37,6 +39,7 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
+        </main>
         <Footer />
     </div>
   );
