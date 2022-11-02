@@ -13,11 +13,6 @@
     margin: 0;
 }
 
-.portfolio__arrow {
-    width: 26px;
-    height: 20px;
-}
-
 .portfolio__item {
     list-style-type: none;
     padding: 0;
@@ -26,9 +21,6 @@
 }
 
 .portfolio__list {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     border-bottom: solid 1px #424242;
     padding-top: 20px;
     padding-bottom: 19px;
@@ -50,6 +42,19 @@
     letter-spacing: -0.04em;
     color: #fff;
     text-decoration: none;
+    position: relative;
+    display: flex;
+}
+
+.portfolio__link::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 0;
+    background: url('../../images/icon-arrow.svg') center no-repeat;
 }
 
 .portfolio__link:hover {

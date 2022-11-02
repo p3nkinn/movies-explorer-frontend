@@ -35,7 +35,7 @@
 .burger__navigation {  
     display: flex;
     flex-direction: column;
-    margin-top: 105px;
+    margin-top: 164px;
     align-items: center;
     justify-content: space-between;
 }
@@ -60,7 +60,7 @@
     top: 0;
     z-index: 1;
     right: 0;
-    padding-bottom: 90px;
+    padding-bottom: 30px;
 }
 
 .burger_hidden {
@@ -111,7 +111,19 @@
         right: 23px;
     }
 
+    .burger__container {
+        padding-bottom: 46px;
+    }
+
     .burger__navigation {
         margin-top: 144px;
+    }
+
+    .burger__bar.clicked:nth-child(3){
+        transform: rotate(135deg) translate(-60%);
+    }
+
+    .burger__bar.clicked:nth-child(1){
+        transform: rotate(45deg) translate(60%);
     }
 }

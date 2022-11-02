@@ -4,7 +4,7 @@
     list-style-type: none;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 68px 28px;
+    gap: 33px 28px;
   }
 
  .moviescard__button-more {
@@ -32,19 +32,20 @@
  @media screen and (max-width: 1024px) {
   .moviescard__list {
     grid-template-columns: repeat(2, 342px);;
-    gap: 70px 24px;
+    gap: 35px 24px;
     justify-content: center;
   }
  }
 
  @media screen and (max-width: 768px) {
   .moviescard__list {
-    grid-template-columns: 1fr;
-    gap: 45px;
+    grid-template-columns: 300px;
+    gap: 16px;
   }
 
   .moviescard__button-more {
     width: 240px;
+    margin-top: 80px;
   }
  }
   

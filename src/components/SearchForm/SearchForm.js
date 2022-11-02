@@ -11,6 +11,7 @@ const SearchForm = () => {
           placeholder="Фильм"
           type="text"
           className="search__input"
+          required
         ></input>
         <button type="submit" className="search__button">
           <img src={searchImage} className="form__img" alt="поиск"></img>
