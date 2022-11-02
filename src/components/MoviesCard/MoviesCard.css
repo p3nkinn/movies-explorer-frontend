@@ -1,0 +1,130 @@
+.moviescard {
+  padding: 15px 70px 80px;
+  width: 100%;
+  background-color: #202020;
+}
+  
+  .moviescard__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222222;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    min-height: 319px;
+  }
+
+  .moviescard__image {
+    width: 100%;
+    max-width: 360px;
+    height: 200px;
+    object-fit: cover;
+  }
+
+	.moviescard__description {
+		display: flex;
+		align-items: center;
+		padding: 18px 18px 18px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 360px;
+	}
+
+	.moviescard__title {
+		font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+		color: #fff;
+		margin: 0;
+	}
+
+	.moviescard__films {
+		display: flex;
+		align-items: center;
+		width: 24px;
+		height: 24px;
+		background-color: #F5F5F5;
+		border-radius: 36px;
+		padding-left: 7px;
+	}
+
+	.moviescard__saved {
+        width: 100px;
+        height: 29px;
+        cursor: pointer;
+        border: none;
+        background-color: #313131;
+        border-radius: 30px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 11px;
+        text-align: center;
+        color: #FFF;
+        padding: 0;
+        margin-top: 18px;
+	}
+
+  .moviescard__saved_active {
+      background: url('../../images/saving.svg') center no-repeat;
+      background-color: #EE3465;
+      color: transparent;
+  }
+
+  .moviescard__saved:hover {
+      opacity: 0.7;
+  }
+
+  .moviescard__delete {
+    background: url('../../images/icon-delete.svg') center no-repeat;
+  }
+
+	.moviescard__duration {
+    font-weight: 400px;
+		font-size: 13px;
+		line-height: 18px;
+		align-items: center;
+		color: #8B8B8B;
+		margin: 0;
+	}
+
+  @media screen and (max-width: 1024px) {
+    .moviescard {
+      padding: 65px 30px 80px;
+    }
+
+    .moviescard__item {
+      min-height: 309px;
+    }
+
+    .moviescard__image {
+      height: 190px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .moviescard {
+      padding: 35px 14px 80px;
+    }
+
+    .moviescard__item {
+      min-height: 271px;
+    }
+
+    .moviescard__description {
+      padding: 14px 14px 14px;
+    }
+
+    .moviescard__image {
+      height: 168px;
+    }
+
+    .moviescard__title {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .moviescard__duration {
+      font-size: 10px;
+      line-height: 18px;
+    }
+  }

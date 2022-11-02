@@ -1,0 +1,122 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    height: 100vh;
+    background-color: #202020;
+    padding: 74px 70px 70px;
+}
+
+.profile__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #fff;
+}
+
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 410px;
+    margin-top: 123px;
+}
+
+.profile__form-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #fff;
+    border-bottom: 1px solid #424242;
+    padding-bottom: 16px;
+    position: relative;
+}
+
+.profile__form-label:last-of-type {
+    border-bottom: none;
+    padding-top: 17px;
+}
+
+.profile__input {
+    border: none;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: right;
+    color: #fff;
+    background-color: #202020;
+}
+
+.name-input-error {
+    position: absolute;
+}
+
+.profile__error {
+    right: 0;
+    top: 35px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465
+}
+
+.profile__button-edit {
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #fff;
+    margin: 0;
+    margin-top: 200px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.profile__button-logout {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #FF004D;
+    text-decoration: none;
+    margin: 0;
+    margin-top: 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+    .profile {
+        height: 950px;
+        padding: 236px 0 269px;
+    }
+
+    .profile__form {
+        margin-top: 96px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile {
+        padding: 70px 30px 40px;
+        justify-content: flex-start;
+    }
+
+    .profile__form {
+        margin-top: 80px;
+    }
+
+    .profile__button-edit {
+        margin-top: 355px;
+    }
+}

@@ -1,0 +1,129 @@
+.burger__navigation {
+     display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+
+.burger {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    position: relative;  
+}
+
+.burger__menu {
+    height: 23px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    position: fixed;
+    top: 26px;
+    right: 38px;
+    z-index: 2;
+    visibility: visible;
+}
+
+.burger__bar {
+    width: 28px;
+    height: 3px;
+    background-color: #fff;
+}
+
+.burger__navigation {  
+    display: flex;
+    flex-direction: column;
+    margin-top: 164px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.burger__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 115px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.burger__container {
+    display: flex;
+    justify-content: center;
+    max-width: 520px;
+    width: 100%;
+    height: 100vh;
+    background-color: #202020;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    right: 0;
+    padding-bottom: 30px;
+}
+
+.burger_hidden {
+    opacity: 1;
+    visibility: hidden;
+}
+
+.burger_visible {
+    background-color: rgba(0,0,0, 0.3);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: .4s ease-in-out;
+    z-index: 1;
+    visibility: visible;
+}
+
+
+.burger__bar.clicked:nth-child(1){
+    transform: rotate(45deg) translate(50%);
+    transition: ease-out 0.5s;
+}
+
+.burger__bar.clicked:nth-child(2){
+    transform: scale(0);
+}
+
+.burger__bar.clicked:nth-child(3){
+    transform: rotate(135deg) translate(-50%);
+    transition: ease-out 0.5s;
+}
+
+.burger__bar.unclicked {
+    transform: rotate(0) translate(0);
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+}
+
+}
+
+@media screen and (max-width: 480px) {
+    .burger__bar {
+        width: 22px;       
+    }
+
+    .burger__menu {
+        right: 23px;
+    }
+
+    .burger__container {
+        padding-bottom: 46px;
+    }
+
+    .burger__navigation {
+        margin-top: 144px;
+    }
+
+    .burger__bar.clicked:nth-child(3){
+        transform: rotate(135deg) translate(-60%);
+    }
+
+    .burger__bar.clicked:nth-child(1){
+        transform: rotate(45deg) translate(60%);
+    }
+}
