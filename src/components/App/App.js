@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -10,10 +10,47 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
+import * as auth from "../../utils/MainApi";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const App = () => {
+  const [isInfoTooltip, setInfoTooltip] = React.useState(false);
+  const [selectedMovie, setSelectedMovie] = React.useState({});
+  const [isMovieDelete, setMovieDelete] = React.useState({});
+  const [movie, setMovie] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [loggedIn, setloggedIn] = React.useState(false);
+  const [isSuccess, setSuccess] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const history = useHistory();
+  
+  React.useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            setloggedIn(true);
+            history.push("/");
+          }
+        })
+        .catch((err) => {
+          if (err.status === 400) {
+            console.log("400 — Токен не передан или передан не в том формате");
+          } else if (err.status === 401) {
+            console.log("401 — Переданный токен некорректен");
+          }
+        });
+    }
+  }, [history]);
+
   return (
     <div className="app">
+      <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <main className="main-content">
         <Switch>
@@ -41,6 +78,7 @@ const App = () => {
         </Switch>
         </main>
         <Footer />
+        </CurrentUserContext.Provider>
     </div>
   );
 }
