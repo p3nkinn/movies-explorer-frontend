@@ -10,15 +10,18 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
-import * as auth from "../../utils/MainApi";
+import MoviesApi from "../../utils/MoviesApi";
+import MainApi from "../../utils/MainApi";
+import * as auth from "../../utils/Auth";
+import Preloader from "../Preloader/Preloader";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   const [isInfoTooltip, setInfoTooltip] = React.useState(false);
-  const [selectedMovie, setSelectedMovie] = React.useState({});
+  const [saveMovies, setSaveMovies] = React.useState([]);
   const [isMovieDelete, setMovieDelete] = React.useState({});
-  const [movie, setMovie] = React.useState([]);
+  const [movies, setMovies] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setloggedIn] = React.useState(false);
@@ -47,6 +50,63 @@ const App = () => {
         });
     }
   }, [history]);
+
+  const handleRegisterSubmit = (name, email, password) => {
+    setIsLoading(true);
+    auth
+      .register(name, email, password)
+      .then(() => {
+        setSuccess(true);
+        history.push("/sign-in");
+      })
+      .catch((err) => {
+        if (err.status === 400) {
+          console.log("400 - некорректно заполнено одно из полей");
+        }
+        setSuccess(false);
+      })
+      .finally(() => {
+        setInfoTooltip(true);
+      });
+  };
+
+  const handleLoginSubmit = (email, password) => {
+    setIsLoading(true);
+    auth
+      .login(email, password)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        setloggedIn(true);
+        setEmail(email);
+        history.push("/movies");
+      })
+      .catch((err) => {
+        if (err.status === 400) {
+          console.log("400 — не передано одно из полей");
+        } else if (err.status === 401) {
+          console.log("401 - пользователь с email не найден ");
+        }
+        setInfoTooltip(true);
+      });
+  };
+
+  const handleUpdateCard = (data) => {
+    setIsLoading(true);
+    MainApi
+      .addNewCard(data)
+      .then((userData) => {
+        setCurrentUser({
+          name: userData.name,
+          email: userData.email,
+        });
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <div className="app">

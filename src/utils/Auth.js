@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.backend.students.nomoredomains.sbs";
+export const BASE_URL = "https://api.diploma.backend.nomorepartiesxyz.ru";
 
 const handleResponse = (res) => {
   if (res.ok) {
@@ -6,13 +6,14 @@ const handleResponse = (res) => {
   }
   return Promise.reject(`Ошибка: ${res.status}`);
 };
-export const register = (email, password) => {
+export const register = (name, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      name: name,
       email: email,
       password: password,
     }),
@@ -41,7 +42,6 @@ export const login = (email, password) => {
 
 export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
-    credentials: 'include',
     method: "GET",
     headers: {
       "Content-Type": "application/json",

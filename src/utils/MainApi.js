@@ -11,7 +11,8 @@ export default class MainApi {
   };
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
         "Content-Type": "application/json",
@@ -38,23 +39,12 @@ export default class MainApi {
       },
       body: JSON.stringify({
         name: userData.name,
-        about: userData.about,
+        about: userData.email,
       }),
     }).then(this._handleResponse);
   }
 
-  changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: isLiked ? 'DELETE' : 'PUT',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(this._handleResponse);
-  }
-
-  addNewAvatar(userData) {
+  addNewCard(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
@@ -62,14 +52,24 @@ export default class MainApi {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: userData.avatar
-      })
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: `https://api.nomoreparties.co${data.image.url}`,
+        trailer: data.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${data.image.url}`,
+        movieId: data.id,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN
+      }),
     })
     .then(this._handleResponse)
   }
 
   deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+    return fetch(`${this._baseUrl}/movies/${id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -80,5 +80,5 @@ export default class MainApi {
 }
 
 export const api = new MainApi({
-  baseUrl: "https://api.backend.students.nomoredomains.sbs",
+  baseUrl: "https://api.diploma.backend.nomorepartiesxyz.ru",
 });
