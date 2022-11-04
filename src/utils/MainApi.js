@@ -10,7 +10,7 @@ export default class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   };
 
-  getInitialCards() {
+  getMovies() {
     return fetch(`${this._baseUrl}/movies`, {
       method: "GET",
       headers: {

@@ -2,10 +2,15 @@ import React from "react";
 import SignForm from "../SignForm/SignForm";
 import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
-const Login = () => {
+const Login = ({onLogin}) => {
 
-  const { values, handleChange, errors, isValid, handleSubmit } =
+  const { values, handleChange, errors, isValid} =
     useFormValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLogin(values.email, values.password);
+  }
 
   const LinkMark = (
     <p className="auth__paragraph">

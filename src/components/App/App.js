@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -18,7 +18,6 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const App = () => {
-  const [isInfoTooltip, setInfoTooltip] = React.useState(false);
   const [saveMovies, setSaveMovies] = React.useState([]);
   const [isMovieDelete, setMovieDelete] = React.useState({});
   const [movies, setMovies] = React.useState([]);
@@ -26,9 +25,9 @@ const App = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setloggedIn] = React.useState(false);
   const [isSuccess, setSuccess] = React.useState(false);
-  const [email, setEmail] = React.useState("");
+  const [isCardDelete, setCardDelete] = React.useState({});
   const history = useHistory();
-  
+
   React.useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
@@ -36,7 +35,6 @@ const App = () => {
         .checkToken(jwt)
         .then((res) => {
           if (res) {
-            setEmail(res.data.email);
             setloggedIn(true);
             history.push("/");
           }
@@ -51,13 +49,65 @@ const App = () => {
     }
   }, [history]);
 
+  const getMovies = () => {
+    setIsLoading(true);
+    const jwt = localStorage.getItem("jwt");
+    MainApi.getMovies(jwt)
+      .then((res) => {
+        const card = res.map((item) => {
+          return {
+            key: item._id,
+            id: item.movieId,
+            image: item.image,
+            nameRU: item.nameRU,
+            duration: item.duration,
+            owner: item.owner,
+            trailer: item.trailer,
+          };
+        });
+        setSaveMovies(card);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const handleCardDelete = () => {
+    MainApi.deleteCard(isCardDelete._id)
+      .then(() => {
+        setMovies((state) =>
+          state.filter((item) => item._id !== isCardDelete._id)
+        );
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  };
+
+  const handleUpdateUser = (name, email) => {
+    setIsLoading(true);
+    const jwt = localStorage.getItem("jwt");
+    MainApi.setProfileInfo(name, email, jwt)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   const handleRegisterSubmit = (name, email, password) => {
     setIsLoading(true);
     auth
       .register(name, email, password)
       .then(() => {
+        handleLoginSubmit(email, password);
         setSuccess(true);
-        history.push("/sign-in");
+        history.push("/signin");
       })
       .catch((err) => {
         if (err.status === 400) {
@@ -66,7 +116,7 @@ const App = () => {
         setSuccess(false);
       })
       .finally(() => {
-        setInfoTooltip(true);
+        setIsLoading(false);
       });
   };
 
@@ -77,8 +127,12 @@ const App = () => {
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setloggedIn(true);
-        setEmail(email);
         history.push("/movies");
+        MainApi.getProfileInfo(res).then((res) => {
+          localStorage.setItem("jwt", res.token);
+          setCurrentUser(res);
+          getMovies();
+        });
       })
       .catch((err) => {
         if (err.status === 400) {
@@ -86,26 +140,36 @@ const App = () => {
         } else if (err.status === 401) {
           console.log("401 - пользователь с email не найден ");
         }
-        setInfoTooltip(true);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
-  const handleUpdateCard = (data) => {
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setCurrentUser({});
+    setSaveMovies([]);
+    setloggedIn(false);
+  };
+
+  const handleSaveMovies = (card) => {
     setIsLoading(true);
-    MainApi
-      .addNewCard(data)
-      .then((userData) => {
-        setCurrentUser({
-          name: userData.name,
-          email: userData.email,
-        });
+    MainApi.addNewCard(card)
+      .then((item) => {
+        const newCard = {
+          key: item._id,
+          id: item.movieId,
+          image: item.image,
+          nameRU: item.nameRU,
+          duration: item.duration,
+          owner: item.owner,
+          trailer: item.trailer,
+        };
+        setSaveMovies([newCard, ...saveMovies]);
       })
       .catch((err) => {
-        console.log(`${err}`);
+        console.log(err);
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -113,34 +177,55 @@ const App = () => {
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <main className="main-content">
-        <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route exact path="/movies">
-            <Movies />
-          </Route>
-          <Route exact path="/saved-movies">
-            <SavedMovies />
-          </Route>
-          <Route exact path="/signup">
-            <Register />
-          </Route>
-          <Route exact path="/signin">
-            <Login />
-          </Route>
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-          <Route exact path="/404">
-            <NotFound />
-          </Route>
-        </Switch>
+          {/* <Preloader onVisible={isLoading} /> */}
+          <Switch>
+            <Route exact path="/">
+              <Main loggedIn={loggedIn} />
+            </Route>
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              movie={movies}
+              onMovieDelete={handleCardDelete}
+              saveMovies={handleSaveMovies}
+              saveMovie={saveMovies}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              exact
+              path="/movies"
+            >
+              <Movies />
+            </ProtectedRoute>
+            <ProtectedRoute 
+            loggedIn={loggedIn}
+            movie={movies}
+            onMovieDelete={handleCardDelete}
+            exact path="/saved-movies">
+              <SavedMovies />
+            </ProtectedRoute>
+            <ProtectedRoute
+            loggedIn={loggedIn}
+            signOut={handleSignOut}
+            onUpdateUser={handleUpdateUser}
+            exact path="/profile">
+              <Profile />
+            </ProtectedRoute>
+            <Route exact path="/signup">
+              {loggedIn ? <Redirect to="/" /> : ""}
+              <Register onRegister={handleRegisterSubmit} />
+            </Route>
+            <Route exact path="/signin">
+              {loggedIn ? <Redirect to="/" /> : ""}
+              <Login onLogin={handleLoginSubmit} />
+            </Route>
+            <Route exact path="/404">
+              <NotFound />
+            </Route>
+          </Switch>
         </main>
         <Footer />
-        </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

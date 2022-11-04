@@ -4,9 +4,14 @@ import "./Register.css";
 import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
 
-const Register = () => {
-  const { values, handleChange, errors, isValid, handleSubmit } =
+const Register = ({onRegister}) => {
+  const { values, handleChange, errors, isValid } =
     useFormValidation();
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      onRegister(values.name, values.email, values.password);
+    }
 
   const LinkMark = (
     <p className="auth__paragraph">
