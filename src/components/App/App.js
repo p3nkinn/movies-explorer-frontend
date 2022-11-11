@@ -52,7 +52,7 @@ const App = () => {
   const getMovies = () => {
     setIsLoading(true);
     const jwt = localStorage.getItem("jwt");
-    MainApi.getMovies(jwt)
+    MoviesApi.getMovies(jwt)
       .then((res) => {
         const card = res.map((item) => {
           return {
@@ -192,22 +192,25 @@ const App = () => {
               setIsLoading={setIsLoading}
               exact
               path="/movies"
+              component={Movies}
+            ></ProtectedRoute>
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              movie={movies}
+              onMovieDelete={handleCardDelete}
+              exact
+              path="/saved-movies"
+              component={SavedMovies}
             >
-              <Movies />
-            </ProtectedRoute>
-            <ProtectedRoute 
-            loggedIn={loggedIn}
-            movie={movies}
-            onMovieDelete={handleCardDelete}
-            exact path="/saved-movies">
-              <SavedMovies />
             </ProtectedRoute>
             <ProtectedRoute
-            loggedIn={loggedIn}
-            signOut={handleSignOut}
-            onUpdateUser={handleUpdateUser}
-            exact path="/profile">
-              <Profile />
+              loggedIn={loggedIn}
+              signOut={handleSignOut}
+              onUpdateUser={handleUpdateUser}
+              exact
+              path="/profile"
+              component={Profile}
+            >
             </ProtectedRoute>
             <Route exact path="/signup">
               {loggedIn ? <Redirect to="/" /> : ""}
