@@ -44,9 +44,9 @@ export default class MainApi {
     }).then(this._handleResponse);
   }
 
-  addNewCard(data) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
+  addNewMovies(data) {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json'
@@ -79,6 +79,6 @@ export default class MainApi {
   }
 }
 
-export const api = new MainApi({
+export const mainApi = new MainApi({
   baseUrl: "https://api.diploma.backend.nomorepartiesxyz.ru",
 });

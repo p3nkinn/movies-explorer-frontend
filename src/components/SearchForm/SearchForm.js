@@ -5,21 +5,24 @@ import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
 import useFormValidation from "../../hook/useFormValidation";
 
 const SearchForm = ({ onFilterChange , onSearch }) => {
+  const formValidate = useFormValidation();
+  const {searchFilms} = formValidate.values;
   const [isError, setIsError] = React.useState("");
-  const { values, handleChange, resetForm } = useFormValidation();
+  const { handleChange, resetForm } = useFormValidation();
+  
   React.useEffect(() => {
     resetForm();
   }, [resetForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!values) {
+    if (!searchFilms) {
       setIsError('Нужно ввести ключевое слово');
       setTimeout(() => {
         setIsError('');
       }, 3000)
     } else {
-      onSearch(values);
+      onSearch(searchFilms);
       resetForm();
     }
   }
@@ -28,15 +31,15 @@ const SearchForm = ({ onFilterChange , onSearch }) => {
     <div className="search">
       <form
         onSubmit={handleSubmit}
-        name="searchName"
         noValidate
         className="search__form"
       >
         <input
           placeholder="Фильм"
+          name="searchFilms"
           type="text"
           onChange={handleChange}
-          value={values || ''}
+          value={searchFilms || ''}
           className="search__input"
           required
         ></input>

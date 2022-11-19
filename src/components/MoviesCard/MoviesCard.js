@@ -4,7 +4,7 @@ import "../MoviesCard/MoviesCard.css";
 
 const MoviesCard = ({ card }) => {
   const [activeState, setActiveState] = React.useState(false);
-  const duration = `${'27 минут'}`;
+
   function handleClickButton() {
     setActiveState(activeState => !activeState);
   }
@@ -12,10 +12,10 @@ const MoviesCard = ({ card }) => {
   return (
     <li className="moviescard__item">
       <div className="moviescard__description">
-        <h3 className="moviescard__title">В погоне за Бенкси</h3>
-        <p className="moviescard__duration">{duration}</p>
+        <h3 className="moviescard__title">{card.nameRU}</h3>
+        <p className="moviescard__duration">{card.duration}</p>
       </div>
-      <img src={card} alt="text" className="moviescard__image" />
+      <img src={`https://api.nomoreparties.co${card.image.url}`} alt={card.nameRU} className="moviescard__image" />
           <button
             onClick={handleClickButton}
             type="button"
