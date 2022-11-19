@@ -29,6 +29,10 @@
     opacity: 0.8;
  }
 
+ .moviescard__button-hide {
+    display: none;
+ }
+
  @media screen and (max-width: 1024px) {
   .moviescard__list {
     grid-template-columns: repeat(2, 342px);;

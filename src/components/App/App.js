@@ -72,6 +72,8 @@ const App = () => {
     .finally(() => setIsLoading(false))
   };
 
+
+
   const handleCardDelete = (movieId) => {
     setIsLoading(true);
     mainApi
@@ -188,7 +190,7 @@ const App = () => {
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
+        <Header loggedIn={loggedIn} />
         <main className="main-content">
           {isLoading ? (
             <Preloader />
@@ -198,7 +200,7 @@ const App = () => {
                 <Main />
               </Route>
               <ProtectedRoute
-                onSvaeMovies={handleSaveMovies}
+                onSaveMovies={handleSaveMovies}
                 onMoviesDelete={handleCardDelete}
                 saveMovies={saveMovies}
                 movies={movies}

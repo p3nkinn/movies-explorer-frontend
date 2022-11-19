@@ -1,10 +1,12 @@
-import { React, useState, useEffect} from "react";
+import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 import { Route, Switch } from "react-router-dom";
 
-const MoviesCardList = ({ movies }) => {
-  const [visible, setVisible] = useState(0);
+const MoviesCardList = ({ movies, onSaveMovies, saveMovies }) => {
+  const [visible, setVisible] = React.useState(0);
+  const [hideButton, setHideButton] = React.useState(false);
+  const movieList = movies.slice(0, visible);
 
   const widthMovieList = () => {
     if (window.innerWidth < 1280) {
@@ -16,12 +18,11 @@ const MoviesCardList = ({ movies }) => {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     widthMovieList()
   }, [])
 
   const loadMore = () => {
-    setVisible((prevValue) => prevValue + 3);
     if (window.innerWidth < 1280) {
       setVisible(visible + 3);
     } if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
@@ -31,17 +32,29 @@ const MoviesCardList = ({ movies }) => {
     }
   };
 
+  React.useEffect(() => {
+    if (movieList.length === movies.length) {
+          setHideButton(true);
+        } else {
+          setHideButton(false);
+        }
+}, [movieList.length, movies.length]);
+
+const getSavedMovieCard = ((movie) => {
+  onSaveMovies.find(savedMovie => savedMovie.id === movie.id)
+}) 
+  
   return (
     <section className="moviescard">
       <ul className="moviescard__list">
-        {movies.slice(0, visible).map((item) => (
-          <MoviesCard card={item} key={item.id} />
+        {movieList.map((item) => (
+          <MoviesCard save={getSavedMovieCard(item)} card={item} key={item.id} />
         ))}
       </ul>
       <Switch>
         <Route path="/movies">
           <button
-            className="moviescard__button-more"
+            className={`${!hideButton && movies.length > 3 ? "moviescard__button-hide" : "moviescard__button-more" }`}
             type="button"
             aria-label="Добавить фильмы"
             onClick={loadMore}

@@ -18,6 +18,7 @@ const Movies = ({ movies }) => {
     React.useEffect(() => {
         setCards(movies);
     }, [movies])
+
     
     React.useEffect(() => {
         localStorage.setItem('movies', JSON.stringify(cards))

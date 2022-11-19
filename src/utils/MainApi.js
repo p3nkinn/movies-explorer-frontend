@@ -30,7 +30,7 @@ export default class MainApi {
     }).then(this._handleResponse);
   }
 
-  setProfileInfo(userData) {
+  setProfileInfo(name, email) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
@@ -38,8 +38,8 @@ export default class MainApi {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: userData.name,
-        about: userData.email,
+        name: name,
+        email: email,
       }),
     }).then(this._handleResponse);
   }

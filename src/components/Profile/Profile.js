@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import useFormValidation from "../../hook/useFormValidation";
 import "./Profile.css";
 
 const Profile = ({signOut, onUpdateUser}) => {
-  const currentUser = React.useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid = false, setIsValid } =
+  const { values, handleChange, errors, isValid, setIsValid } =
     useFormValidation();
 
     const profileUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -46,6 +44,9 @@ const Profile = ({signOut, onUpdateUser}) => {
           <input
             name="email"
             type="email"
+            minLength="6" 
+            maxLength="40"
+            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
             aria-label="электронная почта"
             placeholder="E-mail"
             value={values.email || profileUser.email}
@@ -58,7 +59,7 @@ const Profile = ({signOut, onUpdateUser}) => {
              profile__error profile__error_visible"
           >{errors.email}</span>
         </label>
-        <button type="button" onClick={handleSubmit} className={`profile__button-edit ${!isValid && 'profile__button-disabled'}`} disabled={(values.name === profileUser.name && values.email === profileUser.email) || !isValid}>
+        <button type="button" onClick={handleSubmit} className={`profile__button-edit ${isValid && 'profile__button-disabled'}`} disabled={(values.name === profileUser.name && values.email === profileUser.email) || !isValid}>
           Редактировать
         </button>
       </form>

@@ -82,8 +82,7 @@
 }
 
 .profile__button-disabled {
-    color: #000;
-    background-color: #F8F8F8;
+    color: #F8F8F8;
 }
 
 .profile__button-logout {
