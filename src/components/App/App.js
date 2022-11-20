@@ -147,6 +147,7 @@ const App = () => {
     setCurrentUser({});
     setSaveMovies([]);
     setloggedIn(false);
+    history.push("/")
   };
 
   // const handleCardLike = (card) => {
@@ -210,6 +211,7 @@ const App = () => {
               ></ProtectedRoute>
               <ProtectedRoute
                 saveMovies={saveMovies}
+                onSaveMovies={handleSaveMovies}
                 loggedIn={loggedIn}
                 movies={movies}
                 onMoviesDelete={handleCardDelete}

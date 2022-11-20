@@ -40,15 +40,16 @@ const MoviesCardList = ({ movies, onSaveMovies, saveMovies }) => {
         }
 }, [movieList.length, movies.length]);
 
-const getSavedMovieCard = ((movie) => {
-  onSaveMovies.find(savedMovie => savedMovie.id === movie.id)
-}) 
+// const getSavedMovieCard = ((movie) => {
+//   onSaveMovies.find(savedMovie => savedMovie.id === movie.id)
+//   console.log(onSaveMovies)
+// }) 
   
   return (
     <section className="moviescard">
       <ul className="moviescard__list">
         {movieList.map((item) => (
-          <MoviesCard save={getSavedMovieCard(item)} card={item} key={item.id} />
+          <MoviesCard  card={item} key={item.id} />
         ))}
       </ul>
       <Switch>

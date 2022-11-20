@@ -27,6 +27,7 @@ const Header = ({ loggedIn }) => {
           <Link className="header__logo" to="/">
             <img src={moviesLogo} className="header__logo" alt="логотип" />
           </Link>
+          {loggedIn ? <BurgerMenu /> : ""}
           <nav className={loggedIn ? "header__navigation" : ""}>
           <Navigation loggedIn={loggedIn} />
           </nav>

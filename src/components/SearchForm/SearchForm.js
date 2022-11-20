@@ -22,7 +22,7 @@ const SearchForm = ({ onFilterChange , onSearch }) => {
         setIsError('');
       }, 3000)
     } else {
-      onSearch(searchFilms);
+      // onSearch(searchFilms);
       resetForm();
     }
   }
@@ -39,7 +39,7 @@ const SearchForm = ({ onFilterChange , onSearch }) => {
           name="searchFilms"
           type="text"
           onChange={handleChange}
-          value={searchFilms || ''}
+          value={searchFilms}
           className="search__input"
           required
         ></input>
