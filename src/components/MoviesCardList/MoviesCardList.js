@@ -18,6 +18,7 @@ const MoviesCardList = ({ movies, onSaveMovies, saveMovies }) => {
     }
   }
 
+
   React.useEffect(() => {
     widthMovieList()
   }, [])

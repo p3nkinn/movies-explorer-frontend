@@ -2,35 +2,34 @@ import React from "react";
 import "../SearchForm/SearchForm.css";
 import searchImage from "../../images/search.svg";
 import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
-import useFormValidation from "../../hook/useFormValidation";
 
-const SearchForm = ({ onFilterChange , onSearch }) => {
-  const formValidate = useFormValidation();
-  const {searchFilms} = formValidate.values;
-  const [isError, setIsError] = React.useState("");
-  const { handleChange, resetForm } = useFormValidation();
-  
-  React.useEffect(() => {
-    resetForm();
-  }, [resetForm]);
 
-  const handleSubmit = (e) => {
+const SearchForm = ({ onFilterChange , onSearchMovies, onSearch, onSearchSavedMovies }) => {
+  const [search, setSearch] = React.useState('')
+
+  function handleSearchChange(e){
+    setSearch(e.target.value);
+    onSearch(e.target.value);
+    handleValue(e);
+  }
+  function handleValue(e){
+    onSearch(e.target.value);
+  }
+
+  function handleSearchMovies(e) {
     e.preventDefault();
-    if (!searchFilms) {
-      setIsError('Нужно ввести ключевое слово');
-      setTimeout(() => {
-        setIsError('');
-      }, 3000)
-    } else {
-      // onSearch(searchFilms);
-      resetForm();
-    }
+    onSearchMovies(search);
+  }
+
+  function handleSearchSavedMovies(e) {
+    e.preventDefault();
+    onSearchSavedMovies(search);
   }
 
   return (
     <div className="search">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSearchMovies}
         noValidate
         className="search__form"
       >
@@ -38,17 +37,17 @@ const SearchForm = ({ onFilterChange , onSearch }) => {
           placeholder="Фильм"
           name="searchFilms"
           type="text"
-          onChange={handleChange}
-          value={searchFilms}
+          onChange={handleSearchChange}
+          value={search || ''}
           className="search__input"
           required
         ></input>
         <span
           className={`name-input-error ${
-            isError && "auth__error auth__error_visible"
+            "auth__error auth__error_visible"
           }`}
         >
-          {isError}
+          
         </span>
         <button type="submit" className="search__button">
           <img src={searchImage} className="form__img" alt="поиск"></img>

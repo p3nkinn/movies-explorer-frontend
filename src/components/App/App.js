@@ -23,6 +23,9 @@ const App = () => {
   const [movies, setMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setloggedIn] = React.useState(false);
+  const [notFoundMovies, setNotFoundMovies] = React.useState(false);
+  const [isShortMoviesChecked, setIsShortMoviesChecked] = React.useState(false);
+  const [allMovies, setAllMovies] = React.useState([]);
   const history = useHistory();
 
   React.useEffect(() => {
@@ -72,6 +75,60 @@ const App = () => {
     .finally(() => setIsLoading(false))
   };
 
+  const handleShortMoviesChecked = (e) => {
+    setIsShortMoviesChecked(e.target.checked);
+  }
+
+  const searchMovies = (word) => {
+    setIsLoading(true);
+    setMovies([]);
+    setNotFoundMovies(false);
+
+      if(allMovies.length === 0 ) {
+        moviesApi.getMovies()
+          .then((movies) => {
+              setAllMovies(movies)
+              const searchResult = handleSearchMovies(movies, word)
+              if(searchResult.length === 0) {
+                setNotFoundMovies(true);
+                setMovies([]);
+              } else {
+                localStorage.setItem('movies', JSON.stringify(searchResult))
+                setMovies(JSON.parse(localStorage.getItem('movies')));
+                setNotFoundMovies(false);
+              }})
+          .catch((err) => {
+            console.log(`Ошибка ${err}, попробуйте еще раз`)
+          })
+          .finally(() => {
+            setIsLoading(false);
+          })
+      } else {
+        const searchResult = handleSearchMovies(allMovies, word)
+        if(searchResult.length === 0) {
+          setNotFoundMovies(true);
+          setMovies([]);
+          setIsLoading(false);
+        } else if(searchResult.length !== 0) {
+          localStorage.setItem('movies', JSON.stringify(searchResult));
+          setMovies(JSON.parse(localStorage.getItem('movies')));
+          setIsLoading(false);
+          setNotFoundMovies(false);
+        }
+      }
+  }
+
+  const handleSearchMovies = (movies, word) => {
+
+    const filterRegex = new RegExp(word, 'gi');
+    return movies.filter((movie) => {
+      if (isShortMoviesChecked) {
+        return movie.duration <= 40 && filterRegex.test(movie.nameRU)
+      } else {
+        return filterRegex.test(movie.nameRU)
+      }
+    })
+  }
 
 
   const handleCardDelete = (movieId) => {
@@ -205,15 +262,19 @@ const App = () => {
                 onMoviesDelete={handleCardDelete}
                 saveMovies={saveMovies}
                 movies={movies}
+                onSearchMovies={searchMovies}
+                notFoundMovies={notFoundMovies}
+                onShortMoviesCheck={handleShortMoviesChecked}
                 loggedIn={loggedIn}
                 path="/movies"
                 component={Movies}
               ></ProtectedRoute>
               <ProtectedRoute
-                saveMovies={saveMovies}
                 onSaveMovies={handleSaveMovies}
                 loggedIn={loggedIn}
-                movies={movies}
+                movies={saveMovies}
+                onShortMoviesCheck={handleShortMoviesChecked}
+                notFoundMovies={notFoundMovies}
                 onMoviesDelete={handleCardDelete}
                 path="/saved-movies"
                 component={SavedMovies}
