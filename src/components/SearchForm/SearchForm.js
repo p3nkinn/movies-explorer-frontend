@@ -2,58 +2,59 @@ import React from "react";
 import "../SearchForm/SearchForm.css";
 import searchImage from "../../images/search.svg";
 import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
+import useFormValidation from "../../hook/useFormValidation";
 
+const SearchForm = ({ handleFilterChange, onSearch }) => {
+ 
+  const formWithValidation = useFormValidation();
+  const { searchText } = formWithValidation.values;
+  const { handleChange, resetForm } = formWithValidation;
+  const [error, setError] = React.useState('');
 
-const SearchForm = ({ onFilterChange , onSearchMovies, onSearch, onSearchSavedMovies }) => {
-  const [search, setSearch] = React.useState('')
+  React.useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
-  function handleSearchChange(e){
-    setSearch(e.target.value);
-    onSearch(e.target.value);
-    handleValue(e);
-  }
-  function handleValue(e){
-    onSearch(e.target.value);
-  }
-
-  function handleSearchMovies(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    onSearchMovies(search);
-  }
-
-  function handleSearchSavedMovies(e) {
-    e.preventDefault();
-    onSearchSavedMovies(search);
-  }
+    if (!searchText) {
+      setError('Нужно ввести ключевое слово');
+    } else {
+      onSearch(searchText);
+      setError('');
+      resetForm();
+    }
+  };
 
   return (
     <div className="search">
       <form
-        onSubmit={handleSearchMovies}
+        onSubmit={handleSubmit}
         noValidate
         className="search__form"
       >
         <input
           placeholder="Фильм"
-          name="searchFilms"
+          name="searchText"
           type="text"
-          onChange={handleSearchChange}
-          value={search || ''}
+          onChange={handleChange}
+          autoComplete="off"
+          defaultValue={searchText || ''}
           className="search__input"
           required
         ></input>
         <span
-          className={`name-input-error ${
+          className={error && `name-input-error ${
             "auth__error auth__error_visible"
           }`}
         >
-          
+          {error}
         </span>
         <button type="submit" className="search__button">
           <img src={searchImage} className="form__img" alt="поиск"></img>
         </button>
       </form>
-      <FilterCheckBox onFilterChange={onFilterChange} />
+      <FilterCheckBox handleFilterChange={handleFilterChange} />
     </div>
   );
 };

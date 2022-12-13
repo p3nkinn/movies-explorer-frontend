@@ -44,7 +44,7 @@ export default class MainApi {
     }).then(this._handleResponse);
   }
 
-  addNewMovies(data) {
+  addNewMovies(movie) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       headers: {
@@ -52,24 +52,24 @@ export default class MainApi {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        country: data.country,
-        director: data.director,
-        duration: data.duration,
-        year: data.year,
-        description: data.description,
-        image: `https://api.nomoreparties.co${data.image.url}`,
-        trailer: data.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${data.image.url}`,
-        movieId: data.id,
-        nameRU: data.nameRU,
-        nameEN: data.nameEN
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: movie.image,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.image,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN
       }),
     })
     .then(this._handleResponse)
   }
 
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/movies/${id}`, {
+  deleteCard(movieId) {
+    return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
