@@ -2,7 +2,7 @@ import React from "react";
 import "../MoviesCard/MoviesCard.css";
 import { useLocation } from "react-router-dom";
 
-const MoviesCard = ({ saveMovies, movies, addNewMovies, onMoviesDelete }) => {
+const MoviesCard = ({ saveMovies, movies, addNewMovies, onMoviesDelete}) => {
   const location = useLocation();
   const editedDuration = `${Math.trunc(movies.duration / 60)}ч ${
     movies.duration % 60

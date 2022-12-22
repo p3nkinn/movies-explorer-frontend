@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
 import "./Profile.css";
 
-const Profile = ({signOut, onUpdateUser}) => {
+const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
   const { values, handleChange, errors, isValid, setIsValid } =
     useFormValidation();
 
-    const profileUser = JSON.parse(localStorage.getItem('currentUser'));
+  const profileUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      onUpdateUser(values.name, values.email);
-      localStorage.setItem('currentUser', JSON.stringify(values));
-      setIsValid(false);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdateUser(values.name, values.email);
+    localStorage.setItem("currentUser", JSON.stringify(values));
+    setIsValid(false);
+  };
   return (
     <div className="profile">
       <h2 className="profile__title">{`Привет, ${profileUser.name}!`}</h2>
@@ -36,15 +36,16 @@ const Profile = ({signOut, onUpdateUser}) => {
           <span
             className="name-input-error 
             profile__error profile__error_visible"
-          >{errors.name}</span>
+          >
+            {errors.name}
+          </span>
         </label>
-
         <label htmlFor="email" className="profile__form-label">
           E-mail
           <input
             name="email"
             type="email"
-            minLength="6" 
+            minLength="6"
             maxLength="40"
             pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
             aria-label="электронная почта"
@@ -57,13 +58,41 @@ const Profile = ({signOut, onUpdateUser}) => {
           <span
             className="name-input-error
              profile__error profile__error_visible"
-          >{errors.email}</span>
+          >
+            {errors.email}
+          </span>
         </label>
-        <button type="button" onClick={handleSubmit} className={`profile__button-edit ${isValid && 'profile__button-disabled'}`} disabled={(values.name === profileUser.name && values.email === profileUser.email) || !isValid}>
+        {isSuccess && (
+            <p className="profile__error-success">Данные успешно изменены!</p>
+          )}
+          {isFail && (
+            <p className="profile__error-fail">Ошибка при изменении данных!</p>
+          )}
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className={
+            isValid &&
+            (values.name !== profileUser.name ||
+              values.email !== profileUser.email)
+              ? "profile__button profile__button-disabled"
+              : "profile__button"
+          }
+          disabled={
+            (values.name === profileUser.name &&
+              values.email === profileUser.email) ||
+            !isValid
+          }
+        >
           Редактировать
         </button>
       </form>
-      <Link to="/" onClick={signOut} type="button" className="profile__button-logout">
+      <Link
+        to="/"
+        onClick={signOut}
+        type="button"
+        className="profile__button-logout"
+      >
         Выйти из аккаунта
       </Link>
     </div>

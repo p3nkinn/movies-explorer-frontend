@@ -3,47 +3,52 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 import { Route, Switch } from "react-router-dom";
 
-
 const MoviesCardList = ({
   movies,
   saveMovies,
   addNewMovies,
   onMoviesDelete,
+  messageError,
 }) => {
   const [visible, setVisible] = React.useState(0);
-  const [addCards, setAddCards] = React.useState(3);
-  const [moviesToRender, setMoviesToRender] = React.useState([]);
   const movieList = movies.slice(0, visible);
-  const movieRender = () => {
-    const count = Math.min(movies.length, visible + addCards);
-    const extraMovies = movies.slice(visible, count);
-    setMoviesToRender([...moviesToRender, ...extraMovies]);
-    setVisible(count);
-  };
-  
+  const [hideButton, setHideButton] = React.useState(false);
+
   const widthMovieList = () => {
-    if (window.innerWidth < 1280) {
-      return { load: 12, add: 3 };
-    }
-    if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-      return { load: 8, add: 2 };
-    }
-    if (window.innerWidth < 768) {
-      return { load: 5, add: 2 };
+    if (window.innerWidth > 1024 && window.innerWidth < 1280) {
+       setVisible(12);
+    } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+       setVisible(8);
+    } else if (window.innerWidth < 768) {
+       setVisible(5);
     }
   };
 
   React.useEffect(() => {
-    setAddCards(widthMovieList(window.innerWidth).add)
-    const count = Math.min(movies.length, widthMovieList().load);
-    setMoviesToRender(movies.slice(0, count));
-    setVisible(count);
-  }, [movies]);
+    widthMovieList();
+  }, []);
 
-  const loadMore = () => movieRender();
+  const loadMore = () => {
+    if (window.innerWidth > 1024 && window.innerWidth < 1280) {
+      setVisible(visible + 3);
+    } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+      setVisible(visible + 2);
+    } else if (window.innerWidth < 768) {
+      setVisible(visible + 1);
+    }
+  };
+
+  React.useEffect(() => {
+    if (movieList.length === movies.length) {
+      setHideButton(true);
+    } else {
+      setHideButton(false);
+    }
+  }, [movieList.length, movies.length]);
 
   return (
     <section className="moviescard">
+      {messageError === "" || <p className="movies__error">{messageError}</p>}
       <ul className="moviescard__list">
         {movieList.map((movie) => (
           <MoviesCard
@@ -59,7 +64,7 @@ const MoviesCardList = ({
         <Route path="/movies">
           <button
             className={`${
-              visible && movies.length
+              !hideButton && movies.length > 3
                 ? "moviescard__button-more"
                 : "moviescard__button-hide"
             }`}

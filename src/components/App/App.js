@@ -28,6 +28,8 @@ const App = () => {
   const [saveMovies, setSaveMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setloggedIn] = React.useState(false);
+  const [isSuccess, setSuccess] = React.useState(false);
+  const [isFail, setFail] = React.useState(false);
   const [filterMovies, setFilterMovies] = React.useState([]);
   const [allMovies, setAllMovies] = React.useState([]);
   // eslint-disable-next-line no-unused-vars
@@ -71,7 +73,7 @@ const App = () => {
           return {
             ...item,
             image: `https://api.nomoreparties.co${imageURL}`,
-            trailerLink: item.trailerLink,
+            trailer: item.trailerLink,
           };
         });
         localStorage.setItem("allMovies", JSON.stringify(movieList));
@@ -79,7 +81,7 @@ const App = () => {
       })
       .catch(() => {
         localStorage.removeItem("allMovies");
-        setMessageError("Ошибка, попробуйте еще раз");
+        setMessageError("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.");
       })
       .finally(() => setIsLoading(false));
   };
@@ -96,8 +98,7 @@ const App = () => {
         setSaveMovies(saveCard);
       })
       .catch(() => {
-        localStorage.removeItem("saveMovies");
-        setMessageError("Ошибка, попробуйте еще раз");
+        !setIsLoading() ? setMessageError('') : setMessageError("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
       })
       .finally(() => setIsLoading(false));
   };
@@ -152,10 +153,18 @@ const App = () => {
     mainApi
       .setProfileInfo(name, email)
       .then((res) => {
+        setSuccess(true);
         setCurrentUser(res);
+        setTimeout(() => {
+          setSuccess(false)
+        }, 3000);
       })
       .catch((err) => {
-        console.log(`${err}`);
+        console.log(err);
+        setFail(true)
+        setTimeout(() => {
+          setFail(false)
+        }, 3000);
       })
       .finally(() => {
         setIsLoading(false);
@@ -163,17 +172,16 @@ const App = () => {
   };
 
   const handleRegisterSubmit = (name, email, password) => {
+    setMessageError('')
     setIsLoading(true);
     auth
       .register(name, email, password)
       .then(() => {
-        handleLoginSubmit(email, password);
-        history.push("/signin");
+          handleLoginSubmit(email, password);
+          history.push("/signin");
       })
-      .catch((err) => {
-        if (err.status === 400) {
-          console.log("400 - некорректно заполнено одно из полей");
-        }
+      .catch(() => {
+          setMessageError('Пользователь с таким email уже существует.')
       })
       .finally(() => {
         setIsLoading(false);
@@ -192,13 +200,16 @@ const App = () => {
           setCurrentUser(data);
           getMovies();
         })
-        .catch((err) => console.log(err))
-        .finally(() => setIsLoading(false));
+    })
+    .catch(() => setMessageError('Неправильные почта или пароль.'))
+    .finally(() => {
+      setIsLoading(false);
     });
   };
 
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem('currentUser');
     setCurrentUser({});
     setSaveMovies([]);
     setloggedIn(false);
@@ -247,7 +258,7 @@ const App = () => {
               </Route>
               <ProtectedRoute
                 saveMovies={saveMovies}
-                onError={messageError}
+                messageError={messageError}
                 movies={filterMovies}
                 addNewMovies={addNewMovies}
                 onMoviesDelete={handleCardDelete}
@@ -258,7 +269,7 @@ const App = () => {
               ></ProtectedRoute>
               <ProtectedRoute
                 loggedIn={loggedIn}
-                onError={messageError}
+                messageError={messageError}
                 saveMovies={saveMovies}
                 movies={saveMovies}
                 onMoviesDelete={handleCardDelete}
@@ -268,6 +279,8 @@ const App = () => {
               ></ProtectedRoute>
               <ProtectedRoute
                 loggedIn={loggedIn}
+                isFail={isFail}
+                isSuccess={isSuccess}
                 signOut={handleSignOut}
                 onUpdateUser={handleUpdateUser}
                 path="/profile"
@@ -277,14 +290,14 @@ const App = () => {
                 {loggedIn ? (
                   <Redirect to="/movies" />
                 ) : (
-                  <Register onRegister={handleRegisterSubmit} />
+                  <Register messageError={messageError} onRegister={handleRegisterSubmit} />
                 )}
               </Route>
               <Route path="/signin">
                 {loggedIn ? (
                   <Redirect to="/movies" />
                 ) : (
-                  <Login onLogin={handleLoginSubmit} />
+                  <Login messageError={messageError} onLogin={handleLoginSubmit} />
                 )}
               </Route>
               <Route path="/404">

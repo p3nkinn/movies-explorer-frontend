@@ -69,7 +69,7 @@
     color: #EE3465
 }
 
-.profile__button-edit {
+.profile__button {
     font-size: 13px;
     line-height: 16px;
     text-align: center;
@@ -97,6 +97,22 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+}
+
+.profile__error-success {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #2BE080;
+}
+
+.profile__error-fail {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #FF004D;
 }
 
 @media screen and (max-width: 1024px) {

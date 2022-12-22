@@ -4,7 +4,7 @@ import "./Register.css";
 import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
 
-const Register = ({onRegister}) => {
+const Register = ({onRegister, messageError}) => {
   const { values, handleChange, errors, isValid } =
     useFormValidation();
 
@@ -47,7 +47,7 @@ const Register = ({onRegister}) => {
           className="auth__input auth__input_type_name"
         />
         <span
-          className={`name-input-error ${
+          className={`auth-input-error ${
             errors.name && "auth__error auth__error_visible"
           }`}
         >
@@ -96,7 +96,10 @@ const Register = ({onRegister}) => {
         >
           {errors.password}
         </span>
-      </label>
+      </label>    
+      {messageError && (
+            <span className="auth__error">{messageError}</span>
+          )}
       <button
         type="submit"
         className={`${

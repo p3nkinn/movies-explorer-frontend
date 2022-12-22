@@ -6,8 +6,6 @@ import "./SavedMovies.css";
 const SavedMovies = ({
   saveMovies,
   movies,
-  isLoading,
-  loadingError,
   onMoviesDelete,
   addNewMovies,
 }) => {
@@ -25,18 +23,18 @@ const SavedMovies = ({
     setMoviesToRender(movies);
   }, [movies]);
 
-  const searchFilter = (data, searchQuery) => {
-    if (searchQuery) {
-      const regex = new RegExp(searchQuery, "gi");
+  const searchFilter = (data, search) => {
+    if (search) {
+      const filterRegex = new RegExp(search, "gi");
       return data.filter(
-        (item) => regex.test(item.nameRU) || regex.test(item.nameEN)
+        (item) => filterRegex.test(item.nameRU) || filterRegex.test(item.nameEN)
       );
     }
     return [];
   };
 
-  const searchInSavedHandler = (searchQuery) => {
-    setMoviesToRender(searchFilter(movies, searchQuery));
+  const searchInSavedHandler = (search) => {
+    setMoviesToRender(searchFilter(movies, search));
   };
 
   return (

@@ -4,18 +4,17 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 const Movies = ({
-  handleSaveMovies,
   saveMovies,
-  onError,
+  messageError,
   movies,
   addNewMovies,
   handleSearchMovies,
   onMoviesDelete,
 }) => {
   const [filterIsOn, setFilterIsOn] = React.useState(false);
+  
   const filterShortFilm = (moviesToFilter) =>
     moviesToFilter.filter((item) => item.duration < 40);
-
   const handleFilterChange = () => {
     setFilterIsOn(!filterIsOn);
   };
@@ -31,6 +30,7 @@ const Movies = ({
         addNewMovies={addNewMovies}
         onMoviesDelete={onMoviesDelete}
         movies={filterIsOn ? filterShortFilm(movies) : movies}
+        messageError={messageError}
       />
     </section>
   );

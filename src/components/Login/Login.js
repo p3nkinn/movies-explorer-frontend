@@ -2,7 +2,7 @@ import React from "react";
 import SignForm from "../SignForm/SignForm";
 import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
-const Login = ({onLogin}) => {
+const Login = ({onLogin, messageError}) => {
 
   const { values, handleChange, errors, isValid} =
     useFormValidation();
@@ -71,6 +71,9 @@ const Login = ({onLogin}) => {
           {errors.password}
         </span>
       </label>
+      {messageError && (
+            <span className="auth__error">{messageError}</span>
+          )}
       <button
         type="submit"
         className={`${
