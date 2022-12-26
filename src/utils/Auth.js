@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.diploma.backend.nomorepartiesxyz.ru";
+export const BASE_URL = "http://api.diploma.backend.nomorepartiesxyz.ru";
 
 const handleResponse = (res) => {
   if (res.ok) {
@@ -44,8 +44,9 @@ export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
+      authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      
     },
   }).then(handleResponse);
 };
