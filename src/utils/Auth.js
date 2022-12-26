@@ -1,4 +1,4 @@
-export const BASE_URL = "http://api.diploma.backend.nomorepartiesxyz.ru";
+export const BASE_URL = "https://api.diploma.backend.nomorepartiesxyz.ru";
 
 const handleResponse = (res) => {
   if (res.ok) {
