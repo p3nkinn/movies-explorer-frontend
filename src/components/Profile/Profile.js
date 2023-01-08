@@ -30,6 +30,7 @@ const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
             maxLength="10"
             value={values.name || profileUser.name}
             onChange={handleChange}
+            autoComplete="off"
             required
             className="profile__input profile__input_type_name"
           />
@@ -47,12 +48,13 @@ const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
             type="email"
             minLength="6"
             maxLength="40"
-            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             aria-label="электронная почта"
             placeholder="E-mail"
             value={values.email || profileUser.email}
             onChange={handleChange}
-            className="profile__input profile__input_type_name"
+            className="profile__input profile__input_type_password"
+            autoComplete="off"
             required
           />
           <span

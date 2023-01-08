@@ -4,24 +4,24 @@ import searchImage from "../../images/search.svg";
 import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
 import useFormValidation from "../../hook/useFormValidation";
 
-const SearchForm = ({ handleFilterChange, onSearch }) => {
+const SearchForm = ({ handleFilterChange, onSearch, filterIsOn }) => {
  
   const formWithValidation = useFormValidation();
   const { searchText } = formWithValidation.values;
   const { handleChange, resetForm } = formWithValidation;
   const [error, setError] = React.useState('');
+  const [newValue, setNewValue] = React.useState(localStorage.getItem('search') || '');
 
-  React.useEffect(() => {
-    resetForm();
-  }, [resetForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem('search', searchText)
     if (!searchText) {
       setError('Нужно ввести ключевое слово');
     } else {
       onSearch(searchText);
       setError('');
+      setNewValue(e.target.values)
       resetForm();
     }
   };
@@ -39,7 +39,7 @@ const SearchForm = ({ handleFilterChange, onSearch }) => {
           type="text"
           onChange={handleChange}
           autoComplete="off"
-          defaultValue={searchText || ''}
+          defaultValue={searchText || newValue}
           className="search__input"
           required
         ></input>
@@ -54,7 +54,7 @@ const SearchForm = ({ handleFilterChange, onSearch }) => {
           <img src={searchImage} className="form__img" alt="поиск"></img>
         </button>
       </form>
-      <FilterCheckBox handleFilterChange={handleFilterChange} />
+      <FilterCheckBox filterIsOn={filterIsOn} handleFilterChange={handleFilterChange} />
     </div>
   );
 };

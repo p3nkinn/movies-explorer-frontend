@@ -13,9 +13,16 @@ const SavedMovies = ({
 
   const filterShortFilm = (moviesToFilter) =>
     moviesToFilter.filter((item) => item.duration < 40);
-  const handleFilterChange = () => {
-    setFilterIsOn(!filterIsOn);
-  };
+    const handleFilterChange = () => {
+      setFilterIsOn(!filterIsOn);
+      localStorage.setItem('checkbox', !filterIsOn);
+    };
+  
+    React.useEffect(() => {
+      if (localStorage.getItem('checkbox')) {
+        setFilterIsOn(JSON.parse(localStorage.getItem('checkbox')));
+      }  
+    }, [])
 
   const [moviesToRender, setMoviesToRender] = React.useState([]);
 
@@ -42,10 +49,11 @@ const SavedMovies = ({
       <SearchForm
         handleFilterChange={handleFilterChange}
         onSearch={searchInSavedHandler}
+        filterIsOn={filterIsOn}
       />
       <MoviesCardList
         saveMovies={saveMovies}
-        movies={filterIsOn ? filterShortFilm(moviesToRender) : moviesToRender}
+        movies={filterIsOn ? filterShortFilm(movies) : moviesToRender}
         onMoviesDelete={onMoviesDelete}
         addNewMovies={addNewMovies}
       />

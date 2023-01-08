@@ -82,6 +82,7 @@ const Register = ({onRegister, messageError}) => {
           type="password"
           aria-label="Пароль"
           placeholder="Пароль"
+          
           onChange={handleChange}
           minLength="8"
           autoComplete="off"

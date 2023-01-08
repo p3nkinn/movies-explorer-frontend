@@ -12,18 +12,28 @@ const Movies = ({
   onMoviesDelete,
 }) => {
   const [filterIsOn, setFilterIsOn] = React.useState(false);
-  
+
   const filterShortFilm = (moviesToFilter) =>
     moviesToFilter.filter((item) => item.duration < 40);
   const handleFilterChange = () => {
     setFilterIsOn(!filterIsOn);
+    localStorage.setItem('checkbox', !filterIsOn);
   };
+
+  React.useEffect(() => {
+    if (localStorage.getItem('checkbox')) {
+      setFilterIsOn(JSON.parse(localStorage.getItem('checkbox')));
+    }  
+  }, [])
+
+
 
   return (
     <section className="movies">
       <SearchForm
         onSearch={handleSearchMovies}
         handleFilterChange={handleFilterChange}
+        filterIsOn={filterIsOn}
       />
       <MoviesCardList
         saveMovies={saveMovies}

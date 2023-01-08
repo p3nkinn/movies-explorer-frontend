@@ -13,9 +13,9 @@ const MoviesCardList = ({
   const [visible, setVisible] = React.useState(0);
   const movieList = movies.slice(0, visible);
   const [hideButton, setHideButton] = React.useState(false);
-
+ 
   const widthMovieList = () => {
-    if (window.innerWidth > 1024 && window.innerWidth < 1280) {
+    if (window.innerWidth > 1024 && window.innerWidth < 1400) {
        setVisible(12);
     } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
        setVisible(8);
@@ -29,7 +29,7 @@ const MoviesCardList = ({
   }, []);
 
   const loadMore = () => {
-    if (window.innerWidth > 1024 && window.innerWidth < 1280) {
+    if (window.innerWidth > 1024 && window.innerWidth < 1400) {
       setVisible(visible + 3);
     } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
       setVisible(visible + 2);
