@@ -4,24 +4,21 @@ import searchImage from "../../images/search.svg";
 import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
 import useFormValidation from "../../hook/useFormValidation";
 
-const SearchForm = ({ handleFilterChange, onSearch, filterIsOn }) => {
+const SearchForm = ({ handleFilterChange, onSearch, filterIsOn, searchValue }) => {
  
   const formWithValidation = useFormValidation();
   const { searchText } = formWithValidation.values;
   const { handleChange, resetForm } = formWithValidation;
   const [error, setError] = React.useState('');
-  const [newValue, setNewValue] = React.useState(localStorage.getItem('search') || '');
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('search', searchText)
     if (!searchText) {
       setError('Нужно ввести ключевое слово');
     } else {
       onSearch(searchText);
       setError('');
-      setNewValue(e.target.values)
       resetForm();
     }
   };
@@ -34,12 +31,12 @@ const SearchForm = ({ handleFilterChange, onSearch, filterIsOn }) => {
         className="search__form"
       >
         <input
-          placeholder="Фильм"
+          placeholder={searchValue || "Фильм"}
           name="searchText"
           type="text"
           onChange={handleChange}
           autoComplete="off"
-          defaultValue={searchText || newValue}
+          defaultValue={searchText}
           className="search__input"
           required
         ></input>

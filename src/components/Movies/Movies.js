@@ -10,6 +10,7 @@ const Movies = ({
   addNewMovies,
   handleSearchMovies,
   onMoviesDelete,
+  searchValue
 }) => {
   const [filterIsOn, setFilterIsOn] = React.useState(false);
 
@@ -34,6 +35,7 @@ const Movies = ({
         onSearch={handleSearchMovies}
         handleFilterChange={handleFilterChange}
         filterIsOn={filterIsOn}
+        searchValue={searchValue}
       />
       <MoviesCardList
         saveMovies={saveMovies}

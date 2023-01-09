@@ -61,6 +61,7 @@ const Register = ({onRegister, messageError}) => {
           type="email"
           aria-label="электронная почта"
           placeholder="Email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           value={values.email || ""}
           onChange={handleChange}
           autoComplete="off"
@@ -82,7 +83,6 @@ const Register = ({onRegister, messageError}) => {
           type="password"
           aria-label="Пароль"
           placeholder="Пароль"
-          
           onChange={handleChange}
           minLength="8"
           autoComplete="off"

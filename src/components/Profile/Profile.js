@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
 import "./Profile.css";
 
-const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
+const Profile = ({ signOut, onUpdateUser, isFail, isSuccess, currentUser }) => {
   const { values, handleChange, errors, isValid, setIsValid } =
     useFormValidation();
-
-  const profileUser = JSON.parse(localStorage.getItem("currentUser"));
+  const profileUser = currentUser.data;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdateUser(values.name, values.email);
-    localStorage.setItem("currentUser", JSON.stringify(values));
     setIsValid(false);
   };
   return (

@@ -50,11 +50,9 @@ const App = () => {
             setCurrentUser(res);
             localStorage.setItem("currentUser", JSON.stringify(res.data));
             history.push(path);
-          
+            getMovies();
           }
-          
         })
-        
         .catch((err) => {
           console.log(err);
           history.push("/");
@@ -63,7 +61,6 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
-  
   const getMovies = () => {
     setIsLoading(true);
     moviesApi
@@ -77,7 +74,7 @@ const App = () => {
             trailer: item.trailerLink,
           };
         });
-        localStorage.setItem("movies", JSON.stringify(movieList));
+        localStorage.setItem("searchMovies", JSON.stringify(movieList));
         setAllMovies(movieList);
       })
       .catch(() => {
@@ -97,7 +94,7 @@ const App = () => {
           ...item,
           id: item.movieId,
         }));
-        localStorage.setItem('saved', JSON.stringify(saveCard));
+        localStorage.setItem("searchMovies", JSON.stringify(saveCard));
         setSaveMovies(saveCard);
       })
       .catch(() => {
@@ -110,33 +107,34 @@ const App = () => {
       .finally(() => setIsLoading(false));
   };
 
-
   const handleSearchMovies = (search) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setSearchValue(search);
-      setFilterMovies(searchMovies(allMovies, search));
-      setIsLoading(false);
-    }, 600);
+    setSearchValue(search);
+    setFilterMovies(searchMovies(allMovies, search));
+    localStorage.setItem("searchValue", JSON.stringify(search));
   };
 
   React.useEffect(() => {
+    const movieList = JSON.parse(localStorage.getItem("searchMovies"));
+    const value = JSON.parse(localStorage.getItem("searchValue"));
+    const savedList = JSON.parse(localStorage.getItem("savedMovies"));
     if (loggedIn) {
-      const movieList = JSON.parse(localStorage.getItem('movies'));
-    if (movieList) {
-      setFilterMovies(movieList);
-    } else {
-      getMovies()
+      if (movieList) {
+        setFilterMovies(movieList);
+        setSearchValue(value);
+      } else {
+        getMovies(movieList);
+      }
+      if (savedList) {
+        setSaveMovies(savedList);
+      } else {
+        handleSaveMovies(savedList);
+      }
     }
-    const saved = JSON.parse(localStorage.getItem('saved'));
-    if (saved) {
-      setSaveMovies(saved);
-    } else {
-      handleSaveMovies();
-    }
-    }
-    
   }, [loggedIn]);
+
+  const saveLocal = (items) => {
+    localStorage.setItem("savedMovies", JSON.stringify(items));
+  };
 
   const searchMovies = (data, search) => {
     if (search) {
@@ -206,7 +204,7 @@ const App = () => {
         mainApi.getProfileInfo().then((data) => {
           localStorage.setItem("currentUser", JSON.stringify(data.data));
           setCurrentUser(data);
-        })
+        });
       })
       .catch(() => setMessageError("Неправильные почта или пароль."))
       .finally(() => {
@@ -217,16 +215,16 @@ const App = () => {
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("currentUser");
-    localStorage.removeItem("saved");
-    localStorage.removeItem("movies");
-    localStorage.removeItem("search");
+    localStorage.removeItem("savedMovies");
+    localStorage.removeItem("searchMovies");
+    localStorage.removeItem("searchValue");
     localStorage.removeItem("checkbox");
     setCurrentUser({});
     setSaveMovies([]);
     setloggedIn(false);
     history.push("/");
   };
- 
+
   const addNewMovies = (movie) => {
     mainApi
       .addNewMovies(movie)
@@ -236,7 +234,7 @@ const App = () => {
           { ...res.movie, id: res.movie.movieId },
         ];
         setSaveMovies(newSaveMovie);
-        localStorage.setItem('saved', JSON.stringify(newSaveMovie));
+        saveLocal(newSaveMovie);
       })
       .catch((err) => {
         console.error(err);
@@ -251,13 +249,13 @@ const App = () => {
           (movie) => movie.id !== movieId.id
         );
         setSaveMovies(deleteMovie);
-      
+        saveLocal(deleteMovie);
       })
       .catch((err) => {
         console.log(`${err}`);
       });
   };
-  
+
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
@@ -275,6 +273,7 @@ const App = () => {
               addNewMovies={addNewMovies}
               onMoviesDelete={handleCardDelete}
               handleSearchMovies={handleSearchMovies}
+              searchValue={searchValue}
               loggedIn={loggedIn}
               path="/movies"
               component={Movies}
@@ -292,6 +291,7 @@ const App = () => {
             <ProtectedRoute
               loggedIn={loggedIn}
               isFail={isFail}
+              currentUser={currentUser}
               isSuccess={isSuccess}
               signOut={handleSignOut}
               onUpdateUser={handleUpdateUser}
@@ -318,9 +318,7 @@ const App = () => {
                 />
               )}
             </Route>
-            <Route path="/404">
-              <NotFound />
-            </Route>
+            <Route component={NotFound}></Route>
           </Switch>
         </main>
         <Footer />
