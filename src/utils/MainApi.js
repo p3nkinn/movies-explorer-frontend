@@ -39,7 +39,7 @@ export default class MainApi {
       },
       body: JSON.stringify({
         name: name,
-        email: email,
+        email: email
       }),
     }).then(this._handleResponse);
   }

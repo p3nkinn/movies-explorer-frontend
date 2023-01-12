@@ -12,20 +12,21 @@ const Movies = ({
   onMoviesDelete,
   searchValue
 }) => {
+  
   const [filterIsOn, setFilterIsOn] = React.useState(false);
 
   const filterShortFilm = (moviesToFilter) =>
     moviesToFilter.filter((item) => item.duration < 40);
   const handleFilterChange = () => {
     setFilterIsOn(!filterIsOn);
-    localStorage.setItem('checkbox', !filterIsOn);
+      localStorage.setItem('checkbox', !filterIsOn);
   };
 
   React.useEffect(() => {
     if (localStorage.getItem('checkbox')) {
       setFilterIsOn(JSON.parse(localStorage.getItem('checkbox')));
     }  
-  }, [])
+  }, []);
 
 
 

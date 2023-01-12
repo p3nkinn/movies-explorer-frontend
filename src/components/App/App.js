@@ -50,16 +50,33 @@ const App = () => {
             setCurrentUser(res);
             localStorage.setItem("currentUser", JSON.stringify(res.data));
             history.push(path);
-            getMovies();
+            
           }
         })
         .catch((err) => {
           console.log(err);
           history.push("/");
         });
+          getMovies();
+          handleSaveMovies();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
+
+  React.useEffect(() => {
+    const value = JSON.parse(localStorage.getItem("searchValue"));
+    setSearchValue(value);
+      if (localStorage.getItem('searchList')) {
+        const movieList = JSON.parse(localStorage.getItem("searchList"));
+        setFilterMovies(movieList);
+        
+      }
+      if (localStorage.getItem('savedMovies')) {
+        const savedList = JSON.parse(localStorage.getItem("savedMovies"));
+        setSaveMovies(savedList);
+      }
+    
+  }, []);
 
   const getMovies = () => {
     setIsLoading(true);
@@ -94,7 +111,7 @@ const App = () => {
           ...item,
           id: item.movieId,
         }));
-        localStorage.setItem("searchMovies", JSON.stringify(saveCard));
+        localStorage.setItem("searchList", JSON.stringify(saveCard));
         setSaveMovies(saveCard);
       })
       .catch(() => {
@@ -108,41 +125,27 @@ const App = () => {
   };
 
   const handleSearchMovies = (search) => {
-    setSearchValue(search);
-    setFilterMovies(searchMovies(allMovies, search));
-    localStorage.setItem("searchValue", JSON.stringify(search));
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setSearchValue(search);
+      setFilterMovies(searchMovies(allMovies, search));
+    }, 2000);   
   };
-
-  React.useEffect(() => {
-    const movieList = JSON.parse(localStorage.getItem("searchMovies"));
-    const value = JSON.parse(localStorage.getItem("searchValue"));
-    const savedList = JSON.parse(localStorage.getItem("savedMovies"));
-    if (loggedIn) {
-      if (movieList) {
-        setFilterMovies(movieList);
-        setSearchValue(value);
-      } else {
-        getMovies(movieList);
-      }
-      if (savedList) {
-        setSaveMovies(savedList);
-      } else {
-        handleSaveMovies(savedList);
-      }
-    }
-  }, [loggedIn]);
 
   const saveLocal = (items) => {
     localStorage.setItem("savedMovies", JSON.stringify(items));
   };
 
   const searchMovies = (data, search) => {
-    if (search) {
+    if (search && location.pathname === '/movies') {
       const filterRegex = new RegExp(search, "gi");
       const filterData = data.filter(
         (movie) =>
           filterRegex.test(movie.nameRU) || filterRegex.test(movie.nameEN)
       );
+      localStorage.setItem("searchList", JSON.stringify(filterData));
+      localStorage.setItem("searchValue", JSON.stringify(search));
       if (filterData.length === 0) {
         setMessageError("Ничего не найдено");
       } else {
@@ -204,6 +207,7 @@ const App = () => {
         mainApi.getProfileInfo().then((data) => {
           localStorage.setItem("currentUser", JSON.stringify(data.data));
           setCurrentUser(data);
+          getMovies()
         });
       })
       .catch(() => setMessageError("Неправильные почта или пароль."))
@@ -217,8 +221,10 @@ const App = () => {
     localStorage.removeItem("currentUser");
     localStorage.removeItem("savedMovies");
     localStorage.removeItem("searchMovies");
+    localStorage.removeItem("searchList");
     localStorage.removeItem("searchValue");
     localStorage.removeItem("checkbox");
+    localStorage.clear();
     setCurrentUser({});
     setSaveMovies([]);
     setloggedIn(false);

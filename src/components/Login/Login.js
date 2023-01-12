@@ -2,6 +2,7 @@ import React from "react";
 import SignForm from "../SignForm/SignForm";
 import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
+
 const Login = ({onLogin, messageError}) => {
 
   const { values, handleChange, errors, isValid} =
@@ -37,6 +38,7 @@ const Login = ({onLogin, messageError}) => {
           type="email"
           aria-label="электронная почта"
           placeholder="Email"
+          pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
           value={values.email || ""}
           onChange={handleChange}
           required

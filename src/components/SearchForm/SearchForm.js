@@ -16,6 +16,9 @@ const SearchForm = ({ handleFilterChange, onSearch, filterIsOn, searchValue }) =
     e.preventDefault();
     if (!searchText) {
       setError('Нужно ввести ключевое слово');
+      setTimeout(() => {
+        setError('');
+      }, 2000); 
     } else {
       onSearch(searchText);
       setError('');

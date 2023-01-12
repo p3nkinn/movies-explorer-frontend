@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
 import "./Profile.css";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-const Profile = ({ signOut, onUpdateUser, isFail, isSuccess, currentUser }) => {
+const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
   const { values, handleChange, errors, isValid, setIsValid } =
     useFormValidation();
+  const currentUser = React.useContext(CurrentUserContext);
   const profileUser = currentUser.data;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     onUpdateUser(values.name, values.email);
     setIsValid(false);
   };
@@ -46,7 +47,7 @@ const Profile = ({ signOut, onUpdateUser, isFail, isSuccess, currentUser }) => {
             type="email"
             minLength="6"
             maxLength="40"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
             aria-label="электронная почта"
             placeholder="E-mail"
             value={values.email || profileUser.email}

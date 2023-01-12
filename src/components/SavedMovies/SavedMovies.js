@@ -15,15 +15,8 @@ const SavedMovies = ({
     moviesToFilter.filter((item) => item.duration < 40);
     const handleFilterChange = () => {
       setFilterIsOn(!filterIsOn);
-      localStorage.setItem('checkbox', !filterIsOn);
     };
   
-    React.useEffect(() => {
-      if (localStorage.getItem('checkbox')) {
-        setFilterIsOn(JSON.parse(localStorage.getItem('checkbox')));
-      }  
-    }, [])
-
   const [moviesToRender, setMoviesToRender] = React.useState([]);
 
   React.useEffect(() => {
