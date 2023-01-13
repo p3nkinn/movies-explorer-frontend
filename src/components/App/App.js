@@ -227,10 +227,13 @@ const App = () => {
     localStorage.clear();
     setCurrentUser({});
     setSaveMovies([]);
+    // setAllMovies([]);
+    setFilterMovies([]);
+    // setSearchValue('')
     setloggedIn(false);
     history.push("/");
   };
-
+  
   const addNewMovies = (movie) => {
     mainApi
       .addNewMovies(movie)
