@@ -2,22 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useFormValidation from "../../hook/useFormValidation";
 import "./Profile.css";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
-  const { values, handleChange, errors, isValid, setIsValid } =
+const Profile = ({ signOut, onUpdateUser, isFail, isSuccess, currentUser }) => {
+  const { values, handleChange, errors, isValid, setIsValid, setValues } =
     useFormValidation();
-  const currentUser = React.useContext(CurrentUserContext);
-  const profileUser = currentUser.data;
 
+    React.useEffect(() => {
+      setValues(currentUser.data);
+      setIsValid(true);
+    }, [currentUser, setValues, setIsValid]);
+  
   const handleSubmit = () => {
     onUpdateUser(values.name, values.email);
     setIsValid(false);
   };
+
   return (
     <div className="profile">
-      <h2 className="profile__title">{`Привет, ${profileUser.name}!`}</h2>
-      <form className="profile__form">
+      <h2 className="profile__title">{`Привет, ${currentUser.data.name}!`}</h2>
+      <form noValidate className="profile__form">
         <label htmlFor="name" className="profile__form-label">
           Имя
           <input
@@ -27,7 +30,7 @@ const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
             placeholder="Имя"
             minLength="2"
             maxLength="10"
-            value={values.name || profileUser.name}
+            value={values.name || ''}
             onChange={handleChange}
             autoComplete="off"
             required
@@ -50,7 +53,7 @@ const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
             pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
             aria-label="электронная почта"
             placeholder="E-mail"
-            value={values.email || profileUser.email}
+            value={values.email || ''}
             onChange={handleChange}
             className="profile__input profile__input_type_password"
             autoComplete="off"
@@ -64,24 +67,23 @@ const Profile = ({ signOut, onUpdateUser, isFail, isSuccess }) => {
           </span>
         </label>
         {isSuccess && (
-            <p className="profile__error-success">Данные успешно изменены!</p>
-          )}
-          {isFail && (
-            <p className="profile__error-fail">Ошибка при изменении данных!</p>
-          )}
+          <p className="profile__error-success">Данные успешно изменены!</p>
+        )}
+        {isFail && (
+          <p className="profile__error-fail">Ошибка при изменении данных!</p>
+        )}
         <button
           type="button"
           onClick={handleSubmit}
-          className={
+          className={(
             isValid &&
-            (values.name !== profileUser.name ||
-              values.email !== profileUser.email)
+            (values.name !== currentUser.data.name || values.email !== currentUser.data.email))
               ? "profile__button profile__button-disabled"
               : "profile__button"
           }
           disabled={
-            (values.name === profileUser.name &&
-              values.email === profileUser.email) ||
+            (values.name === currentUser.data.name &&
+            values.email === currentUser.data.email) ||
             !isValid
           }
         >

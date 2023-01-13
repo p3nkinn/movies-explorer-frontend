@@ -227,9 +227,8 @@ const App = () => {
     localStorage.clear();
     setCurrentUser({});
     setSaveMovies([]);
-    // setAllMovies([]);
+    setSearchValue('');  
     setFilterMovies([]);
-    // setSearchValue('')
     setloggedIn(false);
     history.push("/");
   };
