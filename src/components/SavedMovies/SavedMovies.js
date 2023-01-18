@@ -1,27 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 import "./SavedMovies.css";
 
 const SavedMovies = ({
-  saveMovies,
   movies,
   onMoviesDelete,
-  addNewMovies,
+  handleSaveMovies,
+  loggedIn,
 }) => {
   const [filterIsOn, setFilterIsOn] = React.useState(false);
 
   const filterShortFilm = (moviesToFilter) =>
     moviesToFilter.filter((item) => item.duration < 40);
-    const handleFilterChange = () => {
-      setFilterIsOn(!filterIsOn);
-    };
-  
+  const handleFilterChange = () => {
+    setFilterIsOn(!filterIsOn);
+  };
+
+  // eslint-disable-next-line no-unused-vars
   const [moviesToRender, setMoviesToRender] = React.useState([]);
 
   React.useEffect(() => {
-    setMoviesToRender(movies);
-  }, [movies]);
+    if (loggedIn) {
+      handleSaveMovies();
+    }
+  }, [loggedIn]);
 
   const searchFilter = (data, search) => {
     if (search) {
@@ -45,10 +49,8 @@ const SavedMovies = ({
         filterIsOn={filterIsOn}
       />
       <MoviesCardList
-        saveMovies={saveMovies}
-        movies={filterIsOn ? filterShortFilm(movies) : moviesToRender}
+        movies={filterIsOn ? filterShortFilm(movies) : movies}
         onMoviesDelete={onMoviesDelete}
-        addNewMovies={addNewMovies}
       />
       <div className="saved-movie-devider" />
     </section>

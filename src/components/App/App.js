@@ -24,7 +24,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState("");
   const [saveMovies, setSaveMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [loggedIn, setloggedIn] = React.useState(false);
@@ -50,32 +50,30 @@ const App = () => {
             setCurrentUser(res);
             localStorage.setItem("currentUser", JSON.stringify(res.data));
             history.push(path);
-            
           }
         })
         .catch((err) => {
           console.log(err);
           history.push("/");
         });
-          getMovies();
-          handleSaveMovies();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
   React.useEffect(() => {
+    if (loggedIn) {
+      getMovies();
+      handleSaveMovies();
+    }
+  }, [loggedIn]);
+
+  React.useEffect(() => {
     const value = JSON.parse(localStorage.getItem("searchValue"));
     setSearchValue(value);
-      if (localStorage.getItem('searchList')) {
-        const movieList = JSON.parse(localStorage.getItem("searchList"));
-        setFilterMovies(movieList);
-        
-      }
-      if (localStorage.getItem('savedMovies')) {
-        const savedList = JSON.parse(localStorage.getItem("savedMovies"));
-        setSaveMovies(savedList);
-      }
-    
+    if (localStorage.getItem("searchList")) {
+      const movieList = JSON.parse(localStorage.getItem("searchList"));
+      setFilterMovies(movieList);
+    }
   }, []);
 
   const getMovies = () => {
@@ -102,6 +100,32 @@ const App = () => {
       .finally(() => setIsLoading(false));
   };
 
+  const isSavedMovie = (data) => {
+    // eslint-disable-next-line array-callback-return
+    const result = saveMovies.some((item) => {
+      if (item.movieId === data.id) {
+        return item;
+      }
+    });
+    return result;
+  };
+
+  const handleAction = (data) => {
+    if (isSavedMovie(data) === false) {
+      addNewMovies(data);
+    } else {
+      deleteSavedMovie(data);
+    }
+  };
+
+  const deleteSavedMovie = (data) => {
+    saveMovies.forEach((item) => {
+      if (item.movieId === data.id) {
+        handleCardDelete(item);
+      }
+    });
+  };
+
   const handleSaveMovies = () => {
     setIsLoading(true);
     mainApi
@@ -109,9 +133,8 @@ const App = () => {
       .then((data) => {
         const saveCard = data.map((item) => ({
           ...item,
-          id: item.movieId,
+          id: item._id,
         }));
-        localStorage.setItem("searchList", JSON.stringify(saveCard));
         setSaveMovies(saveCard);
       })
       .catch(() => {
@@ -130,15 +153,11 @@ const App = () => {
       setIsLoading(false);
       setSearchValue(search);
       setFilterMovies(searchMovies(allMovies, search));
-    }, 2000);   
-  };
-
-  const saveLocal = (items) => {
-    localStorage.setItem("savedMovies", JSON.stringify(items));
+    }, 2000);
   };
 
   const searchMovies = (data, search) => {
-    if (search && location.pathname === '/movies') {
+    if (search && location.pathname === "/movies") {
       const filterRegex = new RegExp(search, "gi");
       const filterData = data.filter(
         (movie) =>
@@ -206,8 +225,7 @@ const App = () => {
         history.push("/movies");
         mainApi.getProfileInfo().then((data) => {
           localStorage.setItem("currentUser", JSON.stringify(data.data));
-          setCurrentUser(data);
-          getMovies()
+          setCurrentUser(data.data);
         });
       })
       .catch(() => setMessageError("Неправильные почта или пароль."))
@@ -227,37 +245,34 @@ const App = () => {
     localStorage.clear();
     setCurrentUser({});
     setSaveMovies([]);
-    setSearchValue('');  
+    setSearchValue("");
     setFilterMovies([]);
     setloggedIn(false);
     history.push("/");
   };
-  
-  const addNewMovies = (movie) => {
+
+  const addNewMovies = (data) => {
     mainApi
-      .addNewMovies(movie)
+      .addNewMovies(data)
       .then((res) => {
-        const newSaveMovie = [
-          ...saveMovies,
-          { ...res.movie, id: res.movie.movieId },
-        ];
+        const newSaveMovie = [...saveMovies, { ...res, id: res.movieId }];
         setSaveMovies(newSaveMovie);
-        saveLocal(newSaveMovie);
       })
       .catch((err) => {
         console.error(err);
       });
   };
 
-  const handleCardDelete = (movieId) => {
+  const handleCardDelete = (data) => {
     mainApi
-      .deleteCard(movieId._id)
-      .then(() => {
-        const deleteMovie = saveMovies.filter(
-          (movie) => movie.id !== movieId.id
-        );
-        setSaveMovies(deleteMovie);
-        saveLocal(deleteMovie);
+      .deleteCard(data._id)
+      .then((res) => {
+        if (res) {
+          const deleteMovie = saveMovies.filter(
+            (movie) => movie.id !== data.id
+          );
+          setSaveMovies(deleteMovie);
+        }
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -275,11 +290,10 @@ const App = () => {
               <Main />
             </Route>
             <ProtectedRoute
-              saveMovies={saveMovies}
+              handleAction={handleAction}
+              isSavedMovie={isSavedMovie}
               messageError={messageError}
               movies={filterMovies}
-              addNewMovies={addNewMovies}
-              onMoviesDelete={handleCardDelete}
               handleSearchMovies={handleSearchMovies}
               searchValue={searchValue}
               loggedIn={loggedIn}
@@ -289,10 +303,9 @@ const App = () => {
             <ProtectedRoute
               loggedIn={loggedIn}
               messageError={messageError}
-              saveMovies={saveMovies}
               movies={saveMovies}
               onMoviesDelete={handleCardDelete}
-              addNewMovies={addNewMovies}
+              handleSaveMovies={handleSaveMovies}
               path="/saved-movies"
               component={SavedMovies}
             ></ProtectedRoute>

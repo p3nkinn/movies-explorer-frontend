@@ -2,30 +2,12 @@ import React from "react";
 import "../MoviesCard/MoviesCard.css";
 import { useLocation } from "react-router-dom";
 
-const MoviesCard = ({ saveMovies, movies, addNewMovies, onMoviesDelete}) => {
+const MoviesCard = ({ movies, isSavedMovie, handleAction, onMoviesDelete}) => {
   const location = useLocation();
   const editedDuration = `${Math.trunc(movies.duration / 60)}ч ${
     movies.duration % 60
   }м`;
 
-  const handleMovies = (e) => {
-    e.preventDefault();
-    if (movies.id) {
-      saveMovies.some((i) => i.movieId === movies.id) ? onMoviesDelete(saveMovies.find((i) => i.movieId === movies.id)) :addNewMovies(movies);
-    } else {
-        onMoviesDelete(movies);   
-    }
-  };
-
-  const isFavorite = saveMovies.some((i) => i.movieId === movies.id);
-  const isOwn = saveMovies.find((i) => i.movieId === movies.id);
-  const movieDeleteButtonClassName = `moviescard__saved ${
-    isOwn ? "moviescard__saved moviescard__saved_delete" : ""
-  }`;
-
-  const movieFavoriteButtonClassName = `moviescard__saved ${
-    isFavorite ? "moviescard__saved_active" : ""
-  }`;
 
   return (
     <li className="moviescard__item">
@@ -43,8 +25,8 @@ const MoviesCard = ({ saveMovies, movies, addNewMovies, onMoviesDelete}) => {
       {location.pathname === "/movies" ? (
         <button
           type="button"
-          onClick={handleMovies}
-          className={movieFavoriteButtonClassName}
+          onClick={() => handleAction(movies)}
+          className={`${isSavedMovie(movies) ? "moviescard__saved moviescard__saved_active" : "moviescard__saved"}`}
           aria-label="сохранить"
         >
           Сохранить
@@ -52,8 +34,8 @@ const MoviesCard = ({ saveMovies, movies, addNewMovies, onMoviesDelete}) => {
       ) : (
         <button
           type="button"
-          onClick={handleMovies}
-          className={movieDeleteButtonClassName}
+          onClick={() => onMoviesDelete(movies)}
+          className={"moviescard__saved moviescard__saved_delete"}
           aria-label="сохранить"
         ></button>
       )}

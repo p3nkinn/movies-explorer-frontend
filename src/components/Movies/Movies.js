@@ -7,9 +7,9 @@ const Movies = ({
   saveMovies,
   messageError,
   movies,
-  addNewMovies,
+  handleAction,
   handleSearchMovies,
-  onMoviesDelete,
+  isSavedMovie,
   searchValue
 }) => {
   
@@ -40,8 +40,8 @@ const Movies = ({
       />
       <MoviesCardList
         saveMovies={saveMovies}
-        addNewMovies={addNewMovies}
-        onMoviesDelete={onMoviesDelete}
+        handleAction={handleAction}
+        isSavedMovie={isSavedMovie}
         movies={filterIsOn ? filterShortFilm(movies) : movies}
         messageError={messageError}
       />

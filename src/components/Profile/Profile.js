@@ -10,7 +10,8 @@ const Profile = ({ signOut, onUpdateUser, isFail, isSuccess, currentUser }) => {
     React.useEffect(() => {
       setValues(currentUser.data);
       setIsValid(true);
-    }, [currentUser, setValues, setIsValid]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
   
   const handleSubmit = () => {
     onUpdateUser(values.name, values.email);

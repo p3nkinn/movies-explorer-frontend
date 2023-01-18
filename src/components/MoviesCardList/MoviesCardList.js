@@ -5,8 +5,8 @@ import { Route, Switch } from "react-router-dom";
 
 const MoviesCardList = ({
   movies,
-  saveMovies,
-  addNewMovies,
+  isSavedMovie,
+  handleAction,
   onMoviesDelete,
   messageError,
 }) => {
@@ -54,8 +54,8 @@ const MoviesCardList = ({
           <MoviesCard
             movies={movie}
             key={movie.id}
-            saveMovies={saveMovies}
-            addNewMovies={addNewMovies}
+            isSavedMovie={isSavedMovie}
+            handleAction={handleAction}
             onMoviesDelete={onMoviesDelete}
           />
         ))}

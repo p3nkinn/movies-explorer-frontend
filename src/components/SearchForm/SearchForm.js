@@ -4,37 +4,40 @@ import searchImage from "../../images/search.svg";
 import FilterCheckBox from "../FilterCheckbox/FilterCheckBox";
 import useFormValidation from "../../hook/useFormValidation";
 
-const SearchForm = ({ handleFilterChange, onSearch, filterIsOn, searchValue }) => {
- 
+const SearchForm = ({
+  handleFilterChange,
+  onSearch,
+  filterIsOn,
+  searchValue,
+}) => {
   const formWithValidation = useFormValidation();
   const { searchText } = formWithValidation.values;
   const { handleChange, resetForm } = formWithValidation;
-  const [error, setError] = React.useState('');
+  const [error, setError] = React.useState("");
 
+  React.useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!searchText) {
-      setError('Нужно ввести ключевое слово');
+      setError("Нужно ввести ключевое слово");
       setTimeout(() => {
-        setError('');
-      }, 2000); 
+        setError("");
+      }, 2000);
     } else {
       onSearch(searchText);
-      setError('');
+      setError("");
       resetForm();
     }
   };
 
   return (
     <div className="search">
-      <form
-        onSubmit={handleSubmit}
-        noValidate
-        className="search__form"
-      >
+      <form onSubmit={handleSubmit} noValidate className="search__form">
         <input
-          placeholder={searchValue || "Фильм"}
+          placeholder={"Фильм" || searchValue}
           name="searchText"
           type="text"
           onChange={handleChange}
@@ -44,9 +47,9 @@ const SearchForm = ({ handleFilterChange, onSearch, filterIsOn, searchValue }) =
           required
         ></input>
         <span
-          className={error && `name-input-error ${
-            "auth__error auth__error_visible"
-          }`}
+          className={
+            error && `name-input-error ${"auth__error auth__error_visible"}`
+          }
         >
           {error}
         </span>
@@ -54,7 +57,10 @@ const SearchForm = ({ handleFilterChange, onSearch, filterIsOn, searchValue }) =
           <img src={searchImage} className="form__img" alt="поиск"></img>
         </button>
       </form>
-      <FilterCheckBox filterIsOn={filterIsOn} handleFilterChange={handleFilterChange} />
+      <FilterCheckBox
+        filterIsOn={filterIsOn}
+        handleFilterChange={handleFilterChange}
+      />
     </div>
   );
 };
