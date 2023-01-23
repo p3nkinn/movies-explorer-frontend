@@ -2,6 +2,7 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 import { Route, Switch } from "react-router-dom";
+import { DESKTOP_MAX_SIZE, DESKTOP_MIN_SIZE, MOBILE_MIN_SIZE, TABLET_MAX_SIZE, TABLET_MIN_SIZE } from "../../utils/constants";
 
 const MoviesCardList = ({
   movies,
@@ -15,11 +16,11 @@ const MoviesCardList = ({
   const [hideButton, setHideButton] = React.useState(false);
  
   const widthMovieList = () => {
-    if (window.innerWidth > 1024 && window.innerWidth < 1400) {
+    if (window.innerWidth > DESKTOP_MIN_SIZE && window.innerWidth < DESKTOP_MAX_SIZE) {
        setVisible(12);
-    } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+    } else if (window.innerWidth >= TABLET_MIN_SIZE && window.innerWidth < TABLET_MAX_SIZE) {
        setVisible(8);
-    } else if (window.innerWidth < 768) {
+    } else if (window.innerWidth < MOBILE_MIN_SIZE) {
        setVisible(5);
     }
   };
@@ -29,15 +30,16 @@ const MoviesCardList = ({
   }, []);
 
   const loadMore = () => {
-    if (window.innerWidth > 1024 && window.innerWidth < 1400) {
+    if (window.innerWidth > DESKTOP_MIN_SIZE && window.innerWidth < DESKTOP_MAX_SIZE) {
       setVisible(visible + 3);
-    } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+    } else if (window.innerWidth >= TABLET_MIN_SIZE && window.innerWidth <= TABLET_MAX_SIZE) {
       setVisible(visible + 2);
-    } else if (window.innerWidth < 768) {
+    } else if (window.innerWidth < MOBILE_MIN_SIZE) {
       setVisible(visible + 1);
     }
   };
 
+ 
   React.useEffect(() => {
     if (movieList.length === movies.length) {
       setHideButton(true);

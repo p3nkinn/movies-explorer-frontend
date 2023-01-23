@@ -2,6 +2,7 @@ import React from "react";
 import "./Movies.css";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import { SHORT_MOVIE_DURATION } from "../../utils/constants";
 
 const Movies = ({
   saveMovies,
@@ -16,7 +17,7 @@ const Movies = ({
   const [filterIsOn, setFilterIsOn] = React.useState(false);
 
   const filterShortFilm = (moviesToFilter) =>
-    moviesToFilter.filter((item) => item.duration < 40);
+    moviesToFilter.filter((item) => item.duration < SHORT_MOVIE_DURATION);
   const handleFilterChange = () => {
     setFilterIsOn(!filterIsOn);
       localStorage.setItem('checkbox', !filterIsOn);

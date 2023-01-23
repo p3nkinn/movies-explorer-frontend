@@ -37,12 +37,12 @@ const SearchForm = ({
     <div className="search">
       <form onSubmit={handleSubmit} noValidate className="search__form">
         <input
-          placeholder={"Фильм" || searchValue}
+          placeholder={"Фильм"}
           name="searchText"
           type="text"
           onChange={handleChange}
           autoComplete="off"
-          defaultValue={searchText}
+          defaultValue={searchText || searchValue}
           className="search__input"
           required
         ></input>

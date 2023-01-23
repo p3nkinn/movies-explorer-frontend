@@ -48,7 +48,7 @@ const App = () => {
         .then((res) => {
           if (res) {
             setCurrentUser(res);
-            localStorage.setItem("currentUser", JSON.stringify(res.data));
+            localStorage.setItem("currentUser", JSON.stringify(res));
             history.push(path);
           }
         })
@@ -224,8 +224,8 @@ const App = () => {
         setloggedIn(true);
         history.push("/movies");
         mainApi.getProfileInfo().then((data) => {
-          localStorage.setItem("currentUser", JSON.stringify(data.data));
-          setCurrentUser(data.data);
+          localStorage.setItem("currentUser", JSON.stringify(data));
+          setCurrentUser(data);
         });
       })
       .catch(() => setMessageError("Неправильные почта или пароль."))
@@ -304,6 +304,7 @@ const App = () => {
               loggedIn={loggedIn}
               messageError={messageError}
               movies={saveMovies}
+              setSaveMovies={setSaveMovies}
               onMoviesDelete={handleCardDelete}
               handleSaveMovies={handleSaveMovies}
               path="/saved-movies"
